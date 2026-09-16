@@ -27,9 +27,13 @@ export const business = {
 // Replace once the client's values page / direct input is available.
 export const coreArgument = {
   eyebrow: "Horticulture first, not just lawn care",
-  headline: "Gardens designed and grown, not just mowed and blown",
+  // Written flat and factual on purpose. A punchy slogan ("designed and
+  // grown, not mowed and blown") is the register of generated marketing
+  // copy; a plain statement of what the business does reads as a real one.
+  headline:
+    "Design, planting and seasonal care for gardens across the North Shore and Langley — approached as horticulture rather than lawn maintenance.",
   body:
-    "Planting plans, soil health, and seasonal care — approached as horticulture rather than lawn maintenance, for properties across the North Shore and Langley.",
+    "Planting plans, soil health, and seasonal care, from people who start with how a plant actually grows.",
 };
 
 export type ServiceIcon = "design" | "install" | "prune" | "seasonal";

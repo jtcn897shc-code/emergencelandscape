@@ -1,54 +1,28 @@
 ---
-import { services, type ServiceIcon } from "../data/site";
-
-const icons: Record<ServiceIcon, string> = {
-  design:
-    '<path d="M12 20V10"/><path d="M12 10c0-3.5-2.5-6-6-6 0 3.5 2.5 6 6 6Z"/><path d="M12 10c0-3.5 2.5-6 6-6 0 3.5-2.5 6-6 6Z"/>',
-  install: '<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/>',
-  prune:
-    '<circle cx="7" cy="6" r="2.5"/><circle cx="7" cy="18" r="2.5"/><path d="M9 7.5 19 18"/><path d="M9 16.5 19 6"/>',
-  seasonal: '<path d="M20 11A8 8 0 1 0 18.5 16.5"/><path d="M20 5v6h-6"/>',
-};
+import { services } from "../data/site";
 ---
 
 <section id="services" class="section">
   <div class="wrap">
     <div class="services__head">
-      <div>
-        <p class="eyebrow">What we do</p>
-        <h2>Horticulture-led garden care</h2>
-      </div>
+      <h2>What we do</h2>
       <p class="services__note">
         Design, installation, and ongoing care for gardens across the North
         Shore and Langley.
       </p>
     </div>
 
-    <div class="services__grid">
-      {services.map((service) => (
-        <a class="services__card reveal" href="#contact">
-          <div class="services__card-top">
-            <div class="services__icon">
-              <svg viewBox="0 0 24 24" aria-hidden="true" set:html={icons[service.icon]} />
-            </div>
-            {/* real destination, so the arrow isn't a dead affordance */}
-            <span class="services__go" aria-hidden="true">
-              <svg viewBox="0 0 16 16" fill="none">
-                <path
-                  d="M4.5 11.5 11.5 4.5M11.5 4.5H5.5M11.5 4.5v6"
-                  stroke="currentColor"
-                  stroke-width="1.6"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"></path>
-              </svg>
-            </span>
-          </div>
-          <h3>{service.name}</h3>
-          <p>{service.description}</p>
-          <span class="visually-hidden">— ask for a quote</span>
-        </a>
+    <!-- A ruled list, not a grid of cards. Hairlines and numerals carry the
+         structure; there is no box, no shadow, no icon badge. -->
+    <ol class="services__list">
+      {services.map((service, i) => (
+        <li class="services__item reveal">
+          <span class="services__num">{String(i + 1).padStart(2, "0")}</span>
+          <h3 class="services__name">{service.name}</h3>
+          <p class="services__desc">{service.description}</p>
+        </li>
       ))}
-    </div>
+    </ol>
   </div>
 </section>
 
@@ -56,134 +30,67 @@ const icons: Record<ServiceIcon, string> = {
   .services__head {
     display: grid;
     gap: var(--space-4);
-    align-items: end;
+    padding-bottom: var(--space-7);
   }
 
   .services__note {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     color: var(--color-ink);
-    opacity: 0.7;
-    max-width: 34ch;
+    max-width: 38ch;
   }
 
-  .services__grid {
+  .services__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: var(--rule);
+  }
+
+  .services__item {
     display: grid;
-    gap: var(--space-5);
-    margin-top: var(--space-7);
+    gap: var(--space-2);
+    padding-block: var(--space-6);
+    border-bottom: var(--rule);
   }
 
-  .services__card {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    background: var(--color-surface);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-xl);
-    padding: var(--space-6);
-    box-shadow: var(--shadow-sm);
-    transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
-  }
-
-  .services__go {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    flex: none;
-    border-radius: var(--radius-full);
-    border: 1px solid var(--color-border);
-    color: var(--color-headline);
-    transition: background-color var(--duration-fast) ease, color var(--duration-fast) ease,
-      transform var(--duration-base) var(--ease-out);
-  }
-
-  .services__go svg {
-    width: 1rem;
-    height: 1rem;
-  }
-
-  @media (hover: hover) and (pointer: fine) {
-    .services__card:hover {
-      border-color: var(--color-accent);
-      box-shadow: var(--shadow-md);
-    }
-
-    .services__card:hover .services__go {
-      background: var(--color-accent);
-      border-color: var(--color-accent);
-      color: #fff;
-      transform: translate(2px, -2px);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .services__card:hover .services__go {
-      transform: none;
-    }
-  }
-
-  .services__card-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--space-4);
-    margin-bottom: var(--space-5);
-  }
-
-  .services__icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 3rem;
-    height: 3rem;
-    flex: none;
-    border-radius: var(--radius-full);
-    background: var(--color-accent);
-    color: #fff;
-  }
-
-  .services__icon :global(svg) {
-    width: 1.5rem;
-    height: 1.5rem;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.75;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  /* small stagger so the grid doesn't reveal all at once */
-  .services__grid > :nth-child(2) {
-    transition-delay: 60ms;
-  }
-  .services__grid > :nth-child(3) {
-    transition-delay: 120ms;
-  }
-  .services__grid > :nth-child(4) {
-    transition-delay: 180ms;
-  }
-
-  .services__card h3 {
-    font-size: var(--font-size-xl);
-    margin-bottom: var(--space-3);
-  }
-
-  .services__card p {
-    font-size: var(--font-size-sm);
+  .services__num {
+    font-family: var(--font-body);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    letter-spacing: 0.16em;
     color: var(--color-ink);
+    opacity: 0.45;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .services__name {
+    font-size: var(--font-size-2xl);
+    font-weight: 500;
+  }
+
+  .services__desc {
+    font-size: var(--font-size-base);
+    color: var(--color-ink);
+    max-width: 52ch;
   }
 
   @media (min-width: 48rem) {
-    .services__grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 64rem) {
     .services__head {
-      grid-template-columns: 1fr auto;
-      gap: var(--space-7);
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      gap: var(--space-8);
+    }
+
+    /* numeral | name | description — a three-column editorial row */
+    .services__item {
+      grid-template-columns: 4rem minmax(0, 1fr) minmax(0, 1.15fr);
+      align-items: baseline;
+      gap: var(--space-6);
+      padding-block: var(--space-7);
+    }
+
+    .services__num {
+      padding-top: 0.4rem;
     }
   }
 </style>

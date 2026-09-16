@@ -1,7 +1,6 @@
 ---
 import { images } from "../data/images";
 import Figure from "./Figure.astro";
-import PhotoCaption from "./PhotoCaption.astro";
 
 const feature = images.work1;
 const secondary = images.work2;
@@ -10,30 +9,23 @@ const secondary = images.work2;
 <section id="work" class="work section">
   <div class="wrap">
     <div class="work__head">
-      <div>
-        <p class="eyebrow">Our work</p>
-        <h2>From plan to planted</h2>
-      </div>
-      <!-- Deliberately does not describe these as completed Emergence
-           projects — the photos are stand-ins (see DISCOVERY.md). -->
+      <h2>From plan to planted</h2>
       <p class="work__note">Project photography coming soon.</p>
     </div>
 
+    <!-- Deliberately uneven: a wide plate, then a narrower one dropped below
+         its baseline, with cream left open around them. Equal tiles in a row
+         are what a template produces. -->
     <div class="work__grid">
-      <figure class="work__feature reveal">
-        <Figure entry={feature} aspect="16 / 10" sizes="(min-width: 64rem) 62vw, 100vw" />
-        {feature.caption && (
-          <PhotoCaption
-            label={feature.caption.label}
-            value={feature.caption.value}
-            class="work__caption"
-          />
-        )}
+      <figure class="work__plate work__plate--wide reveal">
+        <Figure entry={feature} aspect="3 / 2" sizes="(min-width: 64rem) 66vw, 100vw" />
+        <figcaption>Beds, edging and planting, carried from plan to finished property.</figcaption>
       </figure>
 
-      <div class="work__secondary reveal">
-        <Figure entry={secondary} fill sizes="(min-width: 64rem) 30vw, 100vw" />
-      </div>
+      <figure class="work__plate work__plate--tall reveal">
+        <Figure entry={secondary} aspect="3 / 4" sizes="(min-width: 64rem) 28vw, 100vw" />
+        <figcaption>A second project, to be photographed.</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -41,66 +33,46 @@ const secondary = images.work2;
 <style>
   .work__head {
     display: grid;
-    gap: var(--space-4);
-    align-items: end;
+    gap: var(--space-3);
+    padding-bottom: var(--space-8);
   }
 
   .work__note {
     font-size: var(--font-size-sm);
     color: var(--color-ink);
-    opacity: 0.7;
-    max-width: 34ch;
+    opacity: 0.65;
   }
 
   .work__grid {
     display: grid;
-    gap: var(--space-5);
-    margin-top: var(--space-7);
+    gap: var(--space-8);
   }
 
-  .work__feature {
-    position: relative;
+  .work__plate {
     margin: 0;
   }
 
-  /* :global — the element itself belongs to PhotoCaption.astro, so it carries
-     that component's scope attribute rather than this one's */
-  .work__feature :global(.work__caption) {
-    left: var(--space-4);
-    bottom: var(--space-4);
-  }
-
-  @media (min-width: 48rem) {
-    .work__feature :global(.work__caption) {
-      left: var(--space-6);
-      bottom: var(--space-6);
-    }
-  }
-
-  /* the tile's shape is set on this wrapper, not on the image, so the wide
-     layout can stretch it to the feature's height without fighting an
-     inline aspect-ratio */
-  .work__secondary {
-    position: relative;
-    aspect-ratio: 4 / 5;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
+  .work__plate figcaption {
+    margin-top: var(--space-3);
+    font-family: var(--font-body);
+    font-size: var(--font-size-sm);
+    color: var(--color-ink);
+    max-width: 40ch;
   }
 
   @media (min-width: 64rem) {
-    .work__head {
-      grid-template-columns: 1fr auto;
-      gap: var(--space-7);
-    }
-
     .work__grid {
-      grid-template-columns: 1.85fr 1fr;
-      align-items: stretch;
+      grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+      gap: var(--space-8);
+      align-items: start;
     }
 
-    .work__secondary {
-      aspect-ratio: auto;
-      height: 100%;
+    .work__plate--wide {
+      padding-right: var(--space-6);
+    }
+
+    .work__plate--tall {
+      margin-top: var(--space-10);
     }
   }
 </style>
