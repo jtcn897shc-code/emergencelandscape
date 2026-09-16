@@ -1,0 +1,111 @@
+---
+import { Image } from "astro:assets";
+import { business, footer } from "../data/site";
+import { brand } from "../data/images";
+---
+
+<footer class="site-footer">
+  <div class="wrap site-footer__grid">
+    <div class="site-footer__brand">
+      <Image src={brand.logoMarkReversed.src} alt={brand.logoMarkReversed.alt} width={64} height={31} />
+      <p>{business.name}</p>
+    </div>
+
+    <div class="site-footer__col">
+      <p class="site-footer__heading">Contact</p>
+      <a href={business.phoneHref}>{business.phone}</a>
+      <a href={`mailto:${business.email}`}>{business.email}</a>
+      <a href={business.facebookUrl} target="_blank" rel="noopener noreferrer">Facebook</a>
+    </div>
+
+    <div class="site-footer__col">
+      <p class="site-footer__heading">Service area</p>
+      {business.serviceAreas.map((area) => (
+        <p>{area}</p>
+      ))}
+    </div>
+  </div>
+
+  <div class="wrap site-footer__bottom">
+    <p>&copy; {new Date().getFullYear()} {business.name}</p>
+    <p>{footer.credit}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-dark);
+    color: var(--color-dark-ink);
+  }
+
+  .site-footer__grid {
+    display: grid;
+    gap: var(--space-7);
+    padding-block: var(--space-8);
+  }
+
+  .site-footer__brand {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .site-footer__brand img {
+    width: 4rem;
+    height: auto;
+  }
+
+  .site-footer__brand p {
+    font-weight: 700;
+    max-width: 16rem;
+  }
+
+  .site-footer__col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .site-footer__col a,
+  .site-footer__col p {
+    text-decoration: none;
+    color: var(--color-dark-ink);
+    opacity: 0.85;
+    font-size: var(--font-size-sm);
+  }
+
+  .site-footer__col a {
+    transition: opacity var(--duration-fast) ease;
+  }
+
+  .site-footer__col a:hover {
+    opacity: 1;
+  }
+
+  .site-footer__heading {
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    opacity: 1;
+    color: var(--color-accent);
+    margin-bottom: var(--space-1);
+  }
+
+  .site-footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding-block: var(--space-4);
+    border-top: 1px solid rgba(247, 245, 238, 0.15);
+    font-size: var(--font-size-xs);
+    opacity: 0.7;
+  }
+
+  @media (min-width: 48rem) {
+    .site-footer__grid {
+      grid-template-columns: 1.5fr 1fr 1fr;
+    }
+  }
+</style>

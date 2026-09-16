@@ -1,0 +1,43 @@
+---
+import { images } from "../data/images";
+import Figure from "./Figure.astro";
+---
+
+<section class="proof section">
+  <div class="wrap proof__grid">
+    <div class="proof__figure reveal">
+      <Figure entry={images.proof} aspect="4 / 5" sizes="(min-width: 64rem) 36vw, 100vw" />
+    </div>
+
+    <div class="proof__copy">
+      <h2>Why "horticulture" is in the name</h2>
+      <p>
+        TODO: confirm with client — a lot of landscaping companies mow, blow,
+        and move on. Horticulture means understanding what a plant actually
+        needs to thrive: soil, light, water, and the right species for the
+        spot it's going in. That's the difference we want this section to
+        make concrete once we have the client's own words for it.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .proof__grid {
+    display: grid;
+    gap: var(--space-7);
+    align-items: center;
+  }
+
+  .proof__copy p {
+    margin-top: var(--space-4);
+    font-size: var(--font-size-lg);
+    max-width: 36rem;
+  }
+
+  @media (min-width: 64rem) {
+    .proof__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

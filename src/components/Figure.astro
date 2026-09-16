@@ -1,0 +1,97 @@
+---
+import { Image } from "astro:assets";
+import type { ImageEntry } from "../data/images";
+
+interface Props {
+  entry: ImageEntry;
+  aspect?: string;
+  sizes?: string;
+  priority?: boolean;
+  class?: string;
+}
+
+const {
+  entry,
+  aspect = "4 / 3",
+  sizes = "(min-width: 64rem) 40vw, 100vw",
+  priority = false,
+  class: className,
+} = Astro.props;
+
+const kindLabel: Record<string, string> = {
+  garden: "Garden",
+  planting: "Planting",
+  crew: "Crew",
+  property: "Property",
+  detail: "Detail",
+};
+---
+
+{
+  entry.src ? (
+    <Image
+      src={entry.src}
+      alt={entry.alt}
+      class={`figure-photo ${className ?? ""}`}
+      style={`aspect-ratio: ${aspect};`}
+      widths={[480, 768, 1080, 1440]}
+      sizes={sizes}
+      loading={priority ? "eager" : "lazy"}
+      fetchpriority={priority ? "high" : "auto"}
+    />
+  ) : (
+    <div
+      class={`figure-placeholder figure-placeholder--${entry.kind} ${className ?? ""}`}
+      style={`aspect-ratio: ${aspect};`}
+      role="img"
+      aria-label={entry.alt}
+    >
+      <span class="figure-placeholder__kind">{kindLabel[entry.kind] ?? "Photo"}</span>
+      <span class="figure-placeholder__caption">Photo coming soon</span>
+    </div>
+  )
+}
+
+<style>
+  .figure-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: var(--radius-md);
+  }
+
+  .figure-placeholder {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    border-radius: var(--radius-md);
+    background: linear-gradient(
+      135deg,
+      var(--color-sage-tint) 0%,
+      var(--color-bg) 45%,
+      var(--color-sage-tint) 100%
+    );
+    border: 1px dashed var(--color-border);
+    color: var(--color-accent-strong);
+    text-align: center;
+    padding: var(--space-4);
+  }
+
+  .figure-placeholder__kind {
+    font-family: var(--font-family);
+    font-stretch: var(--font-stretch-display);
+    font-weight: 700;
+    font-size: var(--font-size-lg);
+    letter-spacing: 0.02em;
+  }
+
+  .figure-placeholder__caption {
+    font-size: var(--font-size-xs);
+    color: var(--color-ink);
+    opacity: 0.7;
+  }
+</style>

@@ -1,0 +1,54 @@
+---
+import { images } from "../data/images";
+import Figure from "./Figure.astro";
+
+const galleryEntries = [images.gallery1, images.gallery2, images.gallery3];
+---
+
+<section id="work" class="gallery section">
+  <div class="wrap">
+    <h2>Our work</h2>
+    <p class="gallery__intro">
+      TODO: swap in real job photos as they come in — real work beats
+      generated imagery for a trade business every time (see PLAYBOOK.md §6).
+    </p>
+
+    <div class="gallery__grid">
+      {galleryEntries.map((entry) => (
+        <div class="reveal">
+          <Figure entry={entry} aspect="1 / 1" sizes="(min-width: 64rem) 30vw, 100vw" />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery__intro {
+    max-width: 42rem;
+    margin-top: var(--space-3);
+    color: var(--color-ink);
+    opacity: 0.75;
+    font-size: var(--font-size-sm);
+  }
+
+  .gallery__grid {
+    display: grid;
+    gap: var(--space-5);
+    margin-top: var(--space-7);
+  }
+
+  @media (min-width: 48rem) {
+    .gallery__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* small stagger so the grid doesn't reveal all at once */
+  .gallery__grid > :nth-child(2) {
+    transition-delay: 60ms;
+  }
+  .gallery__grid > :nth-child(3) {
+    transition-delay: 120ms;
+  }
+</style>

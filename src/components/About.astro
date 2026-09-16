@@ -1,0 +1,37 @@
+---
+import { about } from "../data/site";
+import { images } from "../data/images";
+import Figure from "./Figure.astro";
+---
+
+<section id="about" class="about section">
+  <div class="wrap about__grid">
+    <div class="about__copy">
+      <h2>{about.heading}</h2>
+      <p>{about.body}</p>
+    </div>
+    <div class="reveal">
+      <Figure entry={images.about} aspect="4 / 3" sizes="(min-width: 64rem) 40vw, 100vw" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .about__grid {
+    display: grid;
+    gap: var(--space-7);
+    align-items: center;
+  }
+
+  .about__copy p {
+    margin-top: var(--space-4);
+    font-size: var(--font-size-lg);
+    max-width: 34rem;
+  }
+
+  @media (min-width: 64rem) {
+    .about__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

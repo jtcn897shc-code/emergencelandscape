@@ -1,0 +1,76 @@
+/*
+  Palette derivation and the contrast decision behind it live in DESIGN.md.
+  Rule: --color-accent is text-and-fill on --color-bg / --color-surface,
+  fill-only (icons, borders, large controls) on --color-sage-tint and
+  --color-dark — it does not clear 4.5:1 on either.
+*/
+:root {
+  /* color */
+  --color-bg: #f7f5ee;
+  --color-surface: #ffffff;
+  --color-sage-tint: #ecf0e3;
+  --color-ink: #525253;
+  --color-headline: #2f4f0d;
+  --color-accent: #4f7825;
+  --color-accent-strong: #3d5c1c;
+  --color-dark: #1b2414;
+  --color-dark-ink: #f7f5ee;
+  --color-border: #dcd8c9;
+
+  /* type */
+  --font-family: "Archivo Variable", "Archivo", system-ui, sans-serif;
+  --font-stretch-display: 120%;
+  --font-stretch-normal: 100%;
+
+  --font-size-xs: 0.8125rem;
+  --font-size-sm: 0.9375rem;
+  --font-size-base: 1.0625rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: clamp(1.5rem, 1.3rem + 1vw, 1.875rem);
+  --font-size-2xl: clamp(1.875rem, 1.5rem + 2vw, 2.5rem);
+  --font-size-3xl: clamp(2.5rem, 1.8rem + 3.5vw, 4rem);
+  --font-size-hero: clamp(2.75rem, 1.8rem + 5vw, 5.5rem);
+
+  --line-height-tight: 1.05;
+  --line-height-snug: 1.25;
+  --line-height-body: 1.6;
+
+  /* spacing (4px base) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+
+  /* radii */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.5rem;
+  --radius-full: 999px;
+
+  /* motion — curves from the `animate` skill's tables, not approximated.
+     ease-out: entering/exiting. ease-in-out: moving/morphing on screen.
+     ease (browser default): hover/color change. Never ease-in on UI. */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+  --duration-fast: 150ms;
+  --duration-base: 250ms;
+  --duration-slow: 450ms;
+
+  /* layout */
+  --content-max: 72rem;
+  --nav-height: 4.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;
+  }
+}

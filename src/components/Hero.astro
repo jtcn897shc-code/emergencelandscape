@@ -1,0 +1,75 @@
+---
+import { coreArgument, business } from "../data/site";
+import { images } from "../data/images";
+import Figure from "./Figure.astro";
+---
+
+<section id="top" class="hero section--tight">
+  <div class="wrap hero__grid">
+    <div class="hero__copy">
+      <p class="hero__eyebrow">{coreArgument.eyebrow}</p>
+      <h1>{coreArgument.headline}</h1>
+      <p class="hero__body">{coreArgument.body}</p>
+
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="#contact">Get a quote</a>
+        <a class="btn btn--outline" href={business.phoneHref}>Call {business.phone}</a>
+      </div>
+
+      <p class="hero__areas">
+        Serving {business.serviceAreas.join(" · ")}
+      </p>
+    </div>
+
+    <div class="hero__figure reveal">
+      <Figure entry={images.hero} aspect="4 / 3" priority sizes="(min-width: 64rem) 44vw, 100vw" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: var(--space-8);
+  }
+
+  .hero__grid {
+    display: grid;
+    gap: var(--space-7);
+    align-items: center;
+  }
+
+  .hero__eyebrow {
+    color: var(--color-accent-strong);
+    font-weight: 700;
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: var(--space-3);
+  }
+
+  .hero__body {
+    margin-top: var(--space-4);
+    max-width: 38rem;
+    font-size: var(--font-size-lg);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+
+  .hero__areas {
+    margin-top: var(--space-5);
+    font-size: var(--font-size-sm);
+    color: var(--color-ink);
+    opacity: 0.75;
+  }
+
+  @media (min-width: 64rem) {
+    .hero__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

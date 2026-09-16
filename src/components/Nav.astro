@@ -1,0 +1,223 @@
+---
+import { Image } from "astro:assets";
+import { business } from "../data/site";
+import { brand } from "../data/images";
+
+const navLinks = [
+  { href: "#services", label: "Services" },
+  { href: "#work", label: "Our Work" },
+  { href: "#about", label: "About" },
+  { href: "#contact", label: "Contact" },
+];
+---
+
+<header class="nav">
+  <div class="wrap nav__inner">
+    <a href="#top" class="nav__brand">
+      <Image src={brand.logoMark.src} alt={brand.logoMark.alt} width={40} height={20} />
+      <span>{business.shortName}</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Primary">
+      {navLinks.map((link) => (
+        <a href={link.href}>{link.label}</a>
+      ))}
+    </nav>
+
+    <div class="nav__cta">
+      <a class="nav__phone" href={business.phoneHref}>{business.phone}</a>
+      <a class="btn btn--primary" href="#contact">Get a quote</a>
+    </div>
+
+    <details class="nav__mobile-details">
+      <summary class="nav__toggle">
+        <span class="visually-hidden">Menu</span>
+        <span class="nav__toggle-bars" aria-hidden="true"></span>
+      </summary>
+
+      <div id="mobile-nav" class="nav__mobile">
+        <nav aria-label="Primary">
+          {navLinks.map((link) => (
+            <a href={link.href}>{link.label}</a>
+          ))}
+        </nav>
+        <a class="nav__phone" href={business.phoneHref}>{business.phone}</a>
+        <a class="btn btn--primary" href="#contact">Get a quote</a>
+      </div>
+    </details>
+  </div>
+</header>
+
+<script>
+  // Progressive enhancement only: the mobile menu is a native <details>
+  // disclosure and works with zero JS. This just closes it after a tap on
+  // a link, which native <details> doesn't do on its own.
+  const details = document.querySelector<HTMLDetailsElement>(".nav__mobile-details");
+  details?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", () => {
+      details.open = false;
+    });
+  });
+</script>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .nav__inner {
+    height: var(--nav-height);
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .nav__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    text-decoration: none;
+    color: var(--color-headline);
+    font-weight: 800;
+    font-stretch: var(--font-stretch-display);
+    font-size: var(--font-size-lg);
+    margin-right: auto;
+  }
+
+  .nav__brand img {
+    width: 2rem;
+    height: auto;
+  }
+
+  .nav__links {
+    display: none;
+    gap: var(--space-5);
+  }
+
+  .nav__links a {
+    text-decoration: none;
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    transition: color var(--duration-fast) ease;
+  }
+
+  .nav__links a:hover {
+    color: var(--color-accent-strong);
+  }
+
+  .nav__cta {
+    display: none;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .nav__phone {
+    text-decoration: none;
+    font-weight: 700;
+    font-size: var(--font-size-sm);
+    white-space: nowrap;
+  }
+
+  .nav__mobile-details {
+    margin-left: auto;
+  }
+
+  .nav__mobile-details > summary {
+    list-style: none;
+  }
+
+  .nav__mobile-details > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .nav__toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .nav__toggle-bars,
+  .nav__toggle-bars::before,
+  .nav__toggle-bars::after {
+    display: block;
+    width: 1.5rem;
+    height: 2px;
+    background: var(--color-headline);
+    border-radius: var(--radius-full);
+    position: relative;
+  }
+
+  .nav__toggle-bars::before {
+    content: "";
+    position: absolute;
+    top: -6px;
+  }
+
+  .nav__toggle-bars::after {
+    content: "";
+    position: absolute;
+    top: 6px;
+  }
+
+  .nav__mobile {
+    position: absolute;
+    inset-inline: 0;
+    top: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    padding: var(--space-5);
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity var(--duration-base) ease, transform var(--duration-base) var(--ease-out);
+    transition-behavior: allow-discrete;
+  }
+
+  /* entrance-only: native <details> has no JS hook to delay closing, so it
+     snaps shut instead of animating out — an acceptable degrade, not a bug */
+  @starting-style {
+    .nav__mobile-details[open] > .nav__mobile {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav__mobile {
+      transform: none;
+    }
+  }
+
+  .nav__mobile nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .nav__mobile a {
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  @media (min-width: 64rem) {
+    .nav__links,
+    .nav__cta {
+      display: flex;
+    }
+
+    .nav__mobile-details {
+      display: none;
+    }
+  }
+</style>
