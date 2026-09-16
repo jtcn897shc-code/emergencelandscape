@@ -30,10 +30,13 @@ export const coreArgument = {
     "TODO: confirm with client — working copy: Emergence is horticulturists first, landscapers second. Planting plans, soil health, and seasonal care come from people trained in how plants actually grow, across the North Shore and Langley.",
 };
 
+export type ServiceIcon = "design" | "install" | "prune" | "seasonal";
+
 export type Service = {
   name: string;
   description: string;
   confirmed: boolean;
+  icon: ServiceIcon;
 };
 
 // TODO: none of these services are confirmed yet — inferred from the
@@ -45,24 +48,28 @@ export const services: Service[] = [
     description:
       "TODO: confirm — planting plans built around soil, sun exposure, and what will actually thrive on your property.",
     confirmed: false,
+    icon: "design",
   },
   {
     name: "Landscape Installation",
     description:
       "TODO: confirm — beds, borders, hardscape, and planting installed from a design plan.",
     confirmed: false,
+    icon: "install",
   },
   {
     name: "Horticultural Maintenance & Pruning",
     description:
       "TODO: confirm — seasonal pruning and plant care from people trained in horticulture, not just mowing routes.",
     confirmed: false,
+    icon: "prune",
   },
   {
     name: "Seasonal Garden Care",
     description:
       "TODO: confirm — spring cleanup, fall prep, and the in-between maintenance that keeps a garden alive year to year.",
     confirmed: false,
+    icon: "seasonal",
   },
 ];
 

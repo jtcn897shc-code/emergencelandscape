@@ -95,18 +95,25 @@ const navLinks = [
 
   .nav__links {
     display: none;
-    gap: var(--space-5);
+    gap: var(--space-1);
+    background: var(--color-sage-tint);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    padding: var(--space-1);
   }
 
   .nav__links a {
     text-decoration: none;
     font-weight: 600;
     font-size: var(--font-size-sm);
-    transition: color var(--duration-fast) ease;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    transition: color var(--duration-fast) ease, background-color var(--duration-fast) ease;
   }
 
   .nav__links a:hover {
     color: var(--color-accent-strong);
+    background: var(--color-surface);
   }
 
   .nav__cta {

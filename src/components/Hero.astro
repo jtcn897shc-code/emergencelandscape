@@ -5,71 +5,197 @@ import Figure from "./Figure.astro";
 ---
 
 <section id="top" class="hero section--tight">
-  <div class="wrap hero__grid">
-    <div class="hero__copy">
-      <p class="hero__eyebrow">{coreArgument.eyebrow}</p>
-      <h1>{coreArgument.headline}</h1>
-      <p class="hero__body">{coreArgument.body}</p>
+  <div class="wrap">
+    <div class="hero__media reveal">
+      <Figure entry={images.hero} fill priority sizes="100vw" />
+      <div class="hero__scrim" aria-hidden="true"></div>
 
-      <div class="hero__actions">
-        <a class="btn btn--primary" href="#contact">Get a quote</a>
-        <a class="btn btn--outline" href={business.phoneHref}>Call {business.phone}</a>
+      <div class="hero__content">
+        <p class="hero__eyebrow">{coreArgument.eyebrow}</p>
+        <h1>{coreArgument.headline}</h1>
+        <p class="hero__body">{coreArgument.body}</p>
+
+        <div class="hero__actions">
+          <a class="btn btn--on-dark" href="#contact">Get a quote</a>
+          <a class="btn btn--outline btn--outline-dark" href={business.phoneHref}>
+            Call {business.phone}
+          </a>
+        </div>
+
+        <a
+          class="hero__social"
+          href={business.facebookUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${business.name} on Facebook`}
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path
+              d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94Z"
+            ></path>
+          </svg>
+        </a>
       </div>
 
-      <p class="hero__areas">
-        Serving {business.serviceAreas.join(" · ")}
-      </p>
-    </div>
-
-    <div class="hero__figure reveal">
-      <Figure entry={images.hero} aspect="4 / 3" priority sizes="(min-width: 64rem) 44vw, 100vw" />
+      <div class="hero__badge glass">
+        <span class="hero__badge-title">Serving</span>
+        <span class="hero__badge-body">{business.serviceAreas.join(" · ")}</span>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .hero {
-    padding-top: var(--space-8);
+  .hero__media {
+    display: grid;
+    position: relative;
+    isolation: isolate;
+    min-height: clamp(30rem, 80vh, 42rem);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
   }
 
-  .hero__grid {
-    display: grid;
-    gap: var(--space-7);
-    align-items: center;
+  /* the background photo/placeholder and scrim are absolutely positioned
+     (inset: 0) and don't participate in sizing; .hero__content is the only
+     in-flow grid item, so it (not a fixed height) determines how tall the
+     hero grows past min-height when the copy is long */
+  .hero__media > :global(*) {
+    grid-area: 1 / 1;
+  }
+
+  .hero__scrim {
+    position: absolute;
+    inset: 0;
+    /* keeps a minimum ~55% dark even at the top — checked against the
+       lightest thing it ever sits on (the placeholder gradient) so hero
+       copy stays readable (~4.2:1+ for the large bold headline) whether
+       a photo has loaded yet or not */
+    background: linear-gradient(
+      to top,
+      rgb(15 20 10 / 90%) 0%,
+      rgb(15 20 10 / 65%) 50%,
+      rgb(15 20 10 / 55%) 100%
+    );
+    pointer-events: none;
+  }
+
+  .hero__content {
+    z-index: 1;
+    align-self: end;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+    width: 100%;
+    padding: var(--space-6);
+    color: var(--color-bg);
+  }
+
+  .hero__content h1 {
+    color: var(--color-bg);
+    max-width: 24ch;
   }
 
   .hero__eyebrow {
-    color: var(--color-accent-strong);
+    color: #fff;
+    background: rgb(255 255 255 / 16%);
+    border: 1px solid rgb(255 255 255 / 30%);
+    width: fit-content;
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius-full);
     font-weight: 700;
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-xs);
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    margin-bottom: var(--space-3);
   }
 
   .hero__body {
-    margin-top: var(--space-4);
-    max-width: 38rem;
+    max-width: 34rem;
     font-size: var(--font-size-lg);
+    color: rgb(247 245 238 / 92%);
   }
 
   .hero__actions {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-3);
-    margin-top: var(--space-6);
+    margin-top: var(--space-2);
   }
 
-  .hero__areas {
-    margin-top: var(--space-5);
+  .btn--outline.btn--outline-dark {
+    color: var(--color-bg);
+    border-color: rgb(247 245 238 / 60%);
+  }
+
+  .btn--outline.btn--outline-dark:hover {
+    background: rgb(255 255 255 / 12%);
+  }
+
+  .hero__social {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-full);
+    background: rgb(255 255 255 / 16%);
+    border: 1px solid rgb(255 255 255 / 30%);
+    color: #fff;
+    margin-top: var(--space-2);
+    transition: background-color var(--duration-fast) ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .hero__social:hover {
+      background: rgb(255 255 255 / 28%);
+    }
+  }
+
+  .hero__badge {
+    position: absolute;
+    right: var(--space-5);
+    top: var(--space-5);
+    z-index: 1;
+    max-width: 14rem;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-lg);
+    display: none;
+  }
+
+  .glass {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .hero__badge-title {
+    display: block;
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent-strong);
+    margin-bottom: var(--space-1);
+  }
+
+  .hero__badge-body {
+    display: block;
     font-size: var(--font-size-sm);
-    color: var(--color-ink);
-    opacity: 0.75;
+    font-weight: 600;
+    color: var(--color-headline);
+  }
+
+  @media (min-width: 40rem) {
+    .hero__badge {
+      display: block;
+    }
   }
 
   @media (min-width: 64rem) {
-    .hero__grid {
-      grid-template-columns: 1fr 1fr;
+    .hero__content {
+      padding: var(--space-8);
     }
   }
 </style>

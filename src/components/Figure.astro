@@ -8,6 +8,8 @@ interface Props {
   sizes?: string;
   priority?: boolean;
   class?: string;
+  /** Absolutely fill the positioned parent instead of sizing by aspect-ratio. */
+  fill?: boolean;
 }
 
 const {
@@ -16,6 +18,7 @@ const {
   sizes = "(min-width: 64rem) 40vw, 100vw",
   priority = false,
   class: className,
+  fill = false,
 } = Astro.props;
 
 const kindLabel: Record<string, string> = {
@@ -32,8 +35,8 @@ const kindLabel: Record<string, string> = {
     <Image
       src={entry.src}
       alt={entry.alt}
-      class={`figure-photo ${className ?? ""}`}
-      style={`aspect-ratio: ${aspect};`}
+      class={`figure-photo ${fill ? "figure-photo--fill" : ""} ${className ?? ""}`}
+      style={fill ? undefined : `aspect-ratio: ${aspect};`}
       widths={[480, 768, 1080, 1440]}
       sizes={sizes}
       loading={priority ? "eager" : "lazy"}
@@ -41,13 +44,17 @@ const kindLabel: Record<string, string> = {
     />
   ) : (
     <div
-      class={`figure-placeholder figure-placeholder--${entry.kind} ${className ?? ""}`}
-      style={`aspect-ratio: ${aspect};`}
+      class={`figure-placeholder figure-placeholder--${entry.kind} ${fill ? "figure-placeholder--fill" : ""} ${className ?? ""}`}
+      style={fill ? undefined : `aspect-ratio: ${aspect};`}
       role="img"
       aria-label={entry.alt}
     >
-      <span class="figure-placeholder__kind">{kindLabel[entry.kind] ?? "Photo"}</span>
-      <span class="figure-placeholder__caption">Photo coming soon</span>
+      {!fill && (
+        <>
+          <span class="figure-placeholder__kind">{kindLabel[entry.kind] ?? "Photo"}</span>
+          <span class="figure-placeholder__caption">Photo coming soon</span>
+        </>
+      )}
     </div>
   )
 }
@@ -59,6 +66,24 @@ const kindLabel: Record<string, string> = {
     object-fit: cover;
     display: block;
     border-radius: var(--radius-md);
+  }
+
+  .figure-photo--fill {
+    position: absolute;
+    inset: 0;
+    border-radius: 0;
+  }
+
+  .figure-placeholder.figure-placeholder--fill {
+    position: absolute;
+    inset: 0;
+    border-radius: 0;
+    /* in fill mode this sits behind bottom-anchored overlay copy (e.g. the
+       hero) — keep the label out of that area instead of dead-centering it */
+    justify-content: flex-start;
+    align-items: flex-start;
+    text-align: left;
+    padding: var(--space-6);
   }
 
   .figure-placeholder {
