@@ -19,15 +19,17 @@ export const business = {
   ],
 };
 
-// TODO: the differentiator below is inferred from the business's own name
-// ("Landscape Horticulture" implies plant/garden expertise, not just mowing)
-// — it is NOT a confirmed client statement. Replace once the client's
-// values page / direct input is available. See DISCOVERY.md.
+// UNCONFIRMED (tracked in DISCOVERY.md): this positioning is inferred from
+// the business's own name — "Landscape Horticulture" implies plant and garden
+// expertise rather than mowing — not from a client statement. It is written
+// to avoid asserting anything unverifiable: it describes an approach, and
+// makes no claim about credentials, certifications, or years in business.
+// Replace once the client's values page / direct input is available.
 export const coreArgument = {
-  eyebrow: "Horticulture-trained, not just lawn-mowed",
+  eyebrow: "Horticulture first, not just lawn care",
   headline: "Gardens designed and grown, not just mowed and blown",
   body:
-    "TODO: confirm with client — working copy: Emergence is horticulturists first, landscapers second. Planting plans, soil health, and seasonal care come from people trained in how plants actually grow, across the North Shore and Langley.",
+    "Planting plans, soil health, and seasonal care — approached as horticulture rather than lawn maintenance, for properties across the North Shore and Langley.",
 };
 
 export type ServiceIcon = "design" | "install" | "prune" | "seasonal";
@@ -39,35 +41,36 @@ export type Service = {
   icon: ServiceIcon;
 };
 
-// TODO: none of these services are confirmed yet — inferred from the
-// business name and standard horticulture-company offerings. Confirm the
-// real service list with the client before launch (see DISCOVERY.md).
+// UNCONFIRMED (tracked in DISCOVERY.md): this service list is inferred from
+// the business name and standard horticulture offerings — the client has not
+// confirmed what they actually do. `confirmed: false` marks that; confirm the
+// real list and its ordering before launch.
 export const services: Service[] = [
   {
     name: "Garden & Planting Design",
     description:
-      "TODO: confirm — planting plans built around soil, sun exposure, and what will actually thrive on your property.",
+      "Planting plans built around soil, sun exposure, and what will actually thrive on your property.",
     confirmed: false,
     icon: "design",
   },
   {
     name: "Landscape Installation",
     description:
-      "TODO: confirm — beds, borders, hardscape, and planting installed from a design plan.",
+      "Beds, borders, hardscape, and planting installed from a design plan.",
     confirmed: false,
     icon: "install",
   },
   {
     name: "Horticultural Maintenance & Pruning",
     description:
-      "TODO: confirm — seasonal pruning and plant care from people trained in horticulture, not just mowing routes.",
+      "Seasonal pruning and plant care that works with how each species grows, rather than a single mowing route.",
     confirmed: false,
     icon: "prune",
   },
   {
     name: "Seasonal Garden Care",
     description:
-      "TODO: confirm — spring cleanup, fall prep, and the in-between maintenance that keeps a garden alive year to year.",
+      "Spring cleanup, fall prep, and the in-between maintenance that keeps a garden healthy year to year.",
     confirmed: false,
     icon: "seasonal",
   },
@@ -75,10 +78,11 @@ export const services: Service[] = [
 
 export const about = {
   heading: "About Emergence",
-  // TODO: no confirmed founding story yet — replace with the client's own
-  // words once available (see DISCOVERY.md "years in business / founding story").
+  // Service areas here are confirmed (FB page). No founding story, team size,
+  // or years in business is claimed — none of that is confirmed yet. Replace
+  // with the client's own words once available (see DISCOVERY.md).
   body:
-    "TODO: confirm with client — Emergence Landscape Horticulture serves West Vancouver, North Vancouver, and Langley with a horticulture-first approach to garden design and care.",
+    "Emergence Landscape Horticulture serves West Vancouver, North Vancouver, and Langley — designing, planting, and caring for gardens with an emphasis on what keeps them healthy long after the install.",
 };
 
 export const contactIntake = {

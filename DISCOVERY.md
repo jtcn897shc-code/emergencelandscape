@@ -29,6 +29,14 @@ open item pending them pasting it in.
 - **Footer credit**: site footer reads "built by Destura" *(confirmed —
   explicit client instruction, not a discovery fact)*
 
+> **Important:** the site no longer shows `TODO:` markers in its visible copy
+> — it was cleaned up to be presentable to the client. That makes **this
+> document the only record of what is still unconfirmed.** The draft copy was
+> written to describe an *approach* and never to assert a verifiable fact:
+> there are no claims of credentials, certifications, training, years in
+> business, team size, awards, review counts, or ratings anywhere on the page.
+> Everything below still needs the client's confirmation before launch.
+
 ## Open — blocking launch
 
 - [ ] **Values/mission copy** from `emergencelh.com/values` — requested
