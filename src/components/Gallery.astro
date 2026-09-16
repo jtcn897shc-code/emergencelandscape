@@ -48,8 +48,15 @@ const secondary = images.work2;
     gap: var(--space-8);
   }
 
+  /* clips the reveal's photo scale-in to the frame; the caption below isn't
+     affected, since it's in normal flow rather than overflowing the box */
   .work__plate {
     margin: 0;
+    overflow: hidden;
+  }
+
+  .work__plate--tall {
+    transition-delay: 90ms;
   }
 
   .work__plate figcaption {

@@ -201,10 +201,15 @@ button {
 }
 
 /* horizontal-overflow guard: nothing on this page should force a scrollbar
-   at any width, checked explicitly at 360px per PLAYBOOK.md §10 */
+   at any width, checked explicitly at 360px per PLAYBOOK.md §10.
+   `clip`, not `hidden` — setting overflow-x: hidden on body without also
+   setting overflow-y computes overflow-y to `auto` (CSS Overflow §3), which
+   silently turns body into a scroll container and breaks position: sticky
+   for anything inside it (the nav). `clip` suppresses the horizontal bleed
+   without that side effect. */
 html,
 body {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* reveal-on-scroll: fully visible by default (no-JS-safe); js.astro flips
@@ -230,6 +235,29 @@ html.js .reveal.is-visible {
 @media (prefers-reduced-motion: reduce) {
   html.js .reveal {
     transform: none;
+  }
+}
+
+/* A photograph settling in gets a touch more presence than a translateY —
+   a faint scale-down reads as the image arriving, not just fading up.
+   Composes with .reveal (opacity/translateY on the parent, scale on the
+   photo) rather than replacing it. */
+html.js .reveal .figure-photo,
+html.js .reveal .figure-placeholder {
+  transform: scale(1.035);
+  transition: transform var(--duration-slow) var(--ease-out);
+}
+
+html.js .reveal.is-visible .figure-photo,
+html.js .reveal.is-visible .figure-placeholder {
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .reveal .figure-photo,
+  html.js .reveal .figure-placeholder {
+    transform: none;
+    transition: none;
   }
 }
 

@@ -111,6 +111,18 @@ const structuredData = {
         );
         window.addEventListener("load", catchUp);
       }
+
+      // Nav gains a slightly heavier rule and its logo settles to a smaller
+      // scale once the page has moved past the very top — a quiet cue that
+      // the page is responding to scroll, not just displaying it.
+      const nav = document.querySelector<HTMLElement>(".nav");
+      if (nav) {
+        const syncNavScrollState = () => {
+          nav.classList.toggle("is-scrolled", window.scrollY > 24);
+        };
+        window.addEventListener("scroll", syncNavScrollState, { passive: true });
+        syncNavScrollState();
+      }
     </script>
   </body>
 </html>
