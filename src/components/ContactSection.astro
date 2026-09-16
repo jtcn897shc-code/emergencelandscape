@@ -4,7 +4,7 @@ import { business, contactIntake } from "../data/site";
 
 <section id="contact" class="contact section">
   <div class="wrap contact__grid">
-    <div>
+    <div class="reveal">
       <h2>{contactIntake.heading}</h2>
       <p class="lede">{contactIntake.body}</p>
       <a class="action contact__action" href={business.phoneHref}>
@@ -12,7 +12,7 @@ import { business, contactIntake } from "../data/site";
       </a>
     </div>
 
-    <div class="contact__details">
+    <div class="contact__details reveal">
       <dl class="contact__list">
         <div class="contact__row">
           <dt>Telephone</dt>
@@ -48,6 +48,10 @@ import { business, contactIntake } from "../data/site";
   .contact__grid {
     display: grid;
     gap: var(--space-8);
+  }
+
+  .contact__details {
+    transition-delay: 90ms;
   }
 
   .contact__action {

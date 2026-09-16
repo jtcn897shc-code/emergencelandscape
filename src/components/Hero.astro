@@ -31,6 +31,10 @@ import Figure from "./Figure.astro";
     </div>
 
     <p class="hero__statement">{coreArgument.headline}</p>
+
+    <a href="#services" class="hero__cue" aria-label="Scroll to services">
+      <span class="hero__cue-line" aria-hidden="true"></span>
+    </a>
   </div>
 </section>
 
@@ -164,6 +168,68 @@ import Figure from "./Figure.astro";
   @media (min-width: 48rem) {
     .hero__statement {
       padding: var(--space-8);
+    }
+  }
+
+  /* A line, not a chevron icon — the house style dropped icon badges
+     everywhere else, and a bouncing arrow is its own kind of template tell.
+     Purpose: invite the scroll. It's a real link to #services, not a purely
+     decorative cue. */
+  .hero__cue {
+    position: absolute;
+    right: var(--space-5);
+    bottom: var(--space-6);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .hero__cue-line {
+    width: 1px;
+    height: 1.75rem;
+    background: rgb(247 245 238 / 55%);
+    animation: hero-cue-drip 2200ms var(--ease-in-out) infinite;
+    transition: background-color var(--duration-fast) ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .hero__cue:hover .hero__cue-line {
+      background: rgb(247 245 238 / 92%);
+    }
+  }
+
+  @keyframes hero-cue-drip {
+    0% {
+      transform: scaleY(0.3) translateY(-0.3rem);
+      opacity: 0;
+    }
+    35% {
+      opacity: 1;
+    }
+    70% {
+      transform: scaleY(1) translateY(0.4rem);
+      opacity: 1;
+    }
+    100% {
+      transform: scaleY(0.3) translateY(0.8rem);
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__cue-line {
+      animation: none;
+      opacity: 0.55;
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .hero__cue {
+      right: var(--space-8);
+      bottom: var(--space-8);
     }
   }
 </style>

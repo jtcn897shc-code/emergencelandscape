@@ -22,7 +22,6 @@ const navLinks = [
         height={203}
         loading="eager"
       />
-      <span class="nav__wordmark">Emergence</span>
     </a>
 
     <nav class="nav__links" aria-label="Primary">
@@ -71,6 +70,11 @@ const navLinks = [
     z-index: 40;
     background: var(--color-bg);
     border-bottom: var(--rule);
+    transition: border-color var(--duration-base) ease;
+  }
+
+  .nav.is-scrolled {
+    border-bottom-color: rgb(47 79 13 / 22%);
   }
 
   .nav__inner {
@@ -80,10 +84,11 @@ const navLinks = [
     gap: var(--space-6);
   }
 
+  /* Logo only — no wordmark beside it. The mark alone is the brand here;
+     it appears again, spelled out, in the hero lockup below the fold. */
   .nav__brand {
     display: flex;
     align-items: center;
-    gap: var(--space-3);
     text-decoration: none;
     color: var(--color-headline);
     margin-right: auto;
@@ -92,17 +97,22 @@ const navLinks = [
 
   .nav__logo {
     width: auto;
-    height: 2.25rem;
+    height: 2.5rem;
+    transform-origin: left center;
+    transition: transform var(--duration-base) var(--ease-out);
   }
 
-  .nav__wordmark {
-    font-family: var(--font-display);
-    font-variation-settings: "opsz" 48, "SOFT" 0, "WONK" 0;
-    font-weight: 500;
-    font-size: 1.0625rem;
-    letter-spacing: 0.17em;
-    text-transform: uppercase;
-    white-space: nowrap;
+  /* nav__inner gets .is-scrolled from Layout's scroll listener once the
+     page has moved past the hero — transform, not height, so this never
+     triggers layout */
+  .nav.is-scrolled .nav__logo {
+    transform: scale(0.86);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav__logo {
+      transition: none;
+    }
   }
 
   .nav__links {

@@ -7,7 +7,7 @@ const entry = images.proof;
 
 <section class="proof section">
   <div class="wrap proof__grid">
-    <div class="proof__copy">
+    <div class="proof__copy reveal">
       <h2>Why "horticulture"<br />is in the name</h2>
       <p class="lede">
         Plenty of outfits mow, blow, and move on. Horticulture means starting
@@ -42,6 +42,12 @@ const entry = images.proof;
 
   .proof__figure {
     margin: 0;
+    overflow: hidden; /* clips the reveal's photo scale-in to the frame */
+  }
+
+  /* the photo trails the copy in slightly, rather than both arriving at once */
+  .proof__figure {
+    transition-delay: 90ms;
   }
 
   @media (min-width: 64rem) {
