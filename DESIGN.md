@@ -40,6 +40,14 @@ size) on the sage tint band and on dark panels — it does not clear 4.5:1 on
 either. Charcoal and deep green are never used as text on the dark footer
 panel; use `--color-bg` (ivory) or white there instead (14.7:1 / 16:1).
 
+### Logo hierarchy
+
+The mark leads, not the name. In the nav the logo is set at `4rem` tall
+(`3.1rem` on phones) with the wordmark reduced to a small, letterspaced,
+muted line beneath it — roughly **3× the visual mass of the wordmark**,
+asserted in the verification script so a future change can't quietly
+reverse it. The footer mark is `11rem` wide for the same reason.
+
 ### Reversed logo
 
 The logo's grey/charcoal leaf-half disappears on a dark ground (2.37:1,
@@ -72,15 +80,40 @@ when real job photos replace the current stand-ins:
 
 ## Typography
 
-One variable font: **Archivo** (Google Fonts, confirmed variable range
-`wght 100–900`, `font-stretch 62.5%–125%`). One family covers both use
-cases the playbook calls for:
+A display/text **pair**, not one family. The playbook prefers a single
+variable family, but a heavy grotesk reads industrial — wrong for a garden
+brand — so the display voice is a serif and the sans is kept for text.
 
-- **Display / headlines**: heavy weight, expanded width (`font-stretch:
-  120%`) — a condensed-to-expanded poster face for the hero and section
-  titles.
-- **Body / UI**: regular-to-medium weight, normal width (`font-stretch:
-  100%`) — comfortable reading measure for paragraphs, nav, forms.
+- **Display / headlines: Fraunces.** Variable, with the axes verified
+  against the actual font binary rather than the CSS: `opsz 9–144`,
+  `wght 100–900`, `SOFT 0–100`, `WONK 0–1`. Headlines run at a high optical
+  size (`opsz 144`) for the tighter, higher-contrast display cut; smaller
+  headings drop to `opsz 48` so they stay sturdy. `SOFT 20` softens the
+  terminals slightly; `WONK 0` keeps the splayed novelty letterforms off.
+- **Body / UI: Plus Jakarta Sans.** Variable `wght 400–800`. A clean
+  geometric sans that stays readable at small sizes — nav, paragraphs,
+  labels, buttons.
+
+A serif needs different metrics than the grotesk the scale was first tuned
+for: `--tracking-display` relaxed from `-0.032em` to `-0.015em` (a serif
+does not want heavy negative tracking) and `--line-height-tight` opened from
+`1.02` to `1.08` to clear its longer ascenders and descenders.
+
+### Both fonts are self-hosted
+
+`src/styles/fonts.css` + `src/assets/fonts/*.woff2` (latin and latin-ext
+subsets). Reasons, in order of importance:
+
+1. No third-party request — the page has **zero** external dependencies at
+   runtime, and no failed request in any environment.
+2. Font files are referenced by **relative** path so Vite fingerprints them
+   and the site's base path is applied automatically. A hardcoded `/base/`
+   would break silently on a repo rename (PLAYBOOK.md §11).
+3. Declared `format("woff2")`, deliberately **not** the deprecated
+   `format("woff2-variations")` — some browsers reject the latter outright
+   and fall back to a system font. The variable axes still work.
+
+Both families are SIL Open Font License, so self-hosting is permitted.
 
 ### Scale
 

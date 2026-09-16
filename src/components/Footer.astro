@@ -7,7 +7,7 @@ import { brand } from "../data/images";
 <footer class="site-footer">
   <div class="wrap site-footer__grid">
     <div class="site-footer__brand">
-      <Image src={brand.logoMarkReversed.src} alt={brand.logoMarkReversed.alt} width={64} height={31} />
+      <Image src={brand.logoMarkReversed.src} alt={brand.logoMarkReversed.alt} width={340} height={164} />
       <p>{business.name}</p>
     </div>
 
@@ -51,7 +51,7 @@ import { brand } from "../data/images";
   }
 
   .site-footer__brand img {
-    width: 4rem;
+    width: min(11rem, 100%);
     height: auto;
   }
 

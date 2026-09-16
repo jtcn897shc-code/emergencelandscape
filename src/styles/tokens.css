@@ -17,10 +17,17 @@
   --color-dark-ink: #f7f5ee;
   --color-border: #dcd8c9;
 
-  /* type */
-  --font-family: "Archivo Variable", "Archivo", system-ui, sans-serif;
-  --font-stretch-display: 120%;
-  --font-stretch-normal: 100%;
+  /* type — a display/text pair rather than one family.
+     Fraunces (variable: opsz 9–144, wght, SOFT 0–100, WONK 0–1) carries the
+     headline voice: warm, botanical, high-contrast at large optical sizes.
+     Plus Jakarta Sans (variable wght 200–800) handles body and UI, where a
+     clean geometric sans stays readable at small sizes. */
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-body: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+
+  /* high opsz = the display cut (tighter, more contrast). SOFT rounds the
+     terminals a touch; WONK 0 keeps the quirky splayed letterforms off. */
+  --font-variation-display: "opsz" 144, "SOFT" 20, "WONK" 0;
 
   --font-size-xs: 0.8125rem;
   --font-size-sm: 0.9375rem;
@@ -31,12 +38,14 @@
   --font-size-3xl: clamp(2.5rem, 1.8rem + 3.5vw, 4rem);
   --font-size-hero: clamp(2.75rem, 1.8rem + 5vw, 5.5rem);
 
-  --line-height-tight: 1.02;
+  /* a serif needs a little more room than the grotesk this was tuned for —
+     its ascenders and descenders are longer */
+  --line-height-tight: 1.08;
   --line-height-snug: 1.25;
   --line-height-body: 1.65;
 
-  /* display type is set tighter than body — optical correction at large sizes */
-  --tracking-display: -0.032em;
+  /* a serif at display size needs far less negative tracking than a grotesk */
+  --tracking-display: -0.015em;
   --tracking-eyebrow: 0.14em;
 
   /* spacing (4px base) */
@@ -81,7 +90,8 @@
 
   /* layout */
   --content-max: 72rem;
-  --nav-height: 4.5rem;
+  /* tall enough for the enlarged logo mark plus its wordmark line */
+  --nav-height: 6.25rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,3 +1,4 @@
+@import "./fonts.css";
 @import "./tokens.css";
 
 *,
@@ -21,8 +22,7 @@ body {
   margin: 0;
   background: var(--color-bg);
   color: var(--color-ink);
-  font-family: var(--font-family);
-  font-stretch: var(--font-stretch-normal);
+  font-family: var(--font-body);
   font-size: var(--font-size-base);
   line-height: var(--line-height-body);
   -webkit-font-smoothing: antialiased;
@@ -41,16 +41,20 @@ h3,
 h4 {
   margin: 0;
   color: var(--color-headline);
-  font-stretch: var(--font-stretch-display);
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-variation-settings: var(--font-variation-display);
+  font-weight: 600;
   line-height: var(--line-height-tight);
   letter-spacing: var(--tracking-display);
   text-wrap: balance;
 }
 
+/* smaller headings sit at a lower optical size — less contrast, sturdier */
 h3,
 h4 {
-  letter-spacing: -0.018em;
+  font-variation-settings: "opsz" 48, "SOFT" 20, "WONK" 0;
+  font-weight: 650;
+  letter-spacing: -0.005em;
 }
 
 h1 {

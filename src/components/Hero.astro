@@ -150,22 +150,29 @@ import Figure from "./Figure.astro";
   }
 
   .hero__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-full);
+    background: rgb(255 255 255 / 14%);
+    border: 1px solid rgb(255 255 255 / 26%);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     color: #fff;
-    font-weight: 700;
+    font-family: var(--font-body);
+    font-weight: 600;
     font-size: var(--font-size-xs);
     text-transform: uppercase;
-    letter-spacing: var(--tracking-eyebrow);
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
+    letter-spacing: 0.1em;
   }
 
   .hero__eyebrow::before {
     content: "";
-    width: var(--space-6);
-    height: 1px;
-    background: currentColor;
-    opacity: 0.6;
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: var(--color-accent);
     flex: none;
   }
 

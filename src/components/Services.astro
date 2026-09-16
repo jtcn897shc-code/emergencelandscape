@@ -25,19 +25,28 @@ const icons: Record<ServiceIcon, string> = {
     </div>
 
     <div class="services__grid">
-      {services.map((service, i) => (
-        <article class="services__card reveal">
+      {services.map((service) => (
+        <a class="services__card reveal" href="#contact">
           <div class="services__card-top">
             <div class="services__icon">
               <svg viewBox="0 0 24 24" aria-hidden="true" set:html={icons[service.icon]} />
             </div>
-            <span class="services__index" aria-hidden="true">
-              {String(i + 1).padStart(2, "0")}
+            {/* real destination, so the arrow isn't a dead affordance */}
+            <span class="services__go" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none">
+                <path
+                  d="M4.5 11.5 11.5 4.5M11.5 4.5H5.5M11.5 4.5v6"
+                  stroke="currentColor"
+                  stroke-width="1.6"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"></path>
+              </svg>
             </span>
           </div>
           <h3>{service.name}</h3>
           <p>{service.description}</p>
-        </article>
+          <span class="visually-hidden">— ask for a quote</span>
+        </a>
       ))}
     </div>
   </div>
@@ -64,11 +73,54 @@ const icons: Record<ServiceIcon, string> = {
   }
 
   .services__card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);
     padding: var(--space-6);
     box-shadow: var(--shadow-sm);
+    transition: border-color var(--duration-fast) ease, box-shadow var(--duration-fast) ease;
+  }
+
+  .services__go {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex: none;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--color-border);
+    color: var(--color-headline);
+    transition: background-color var(--duration-fast) ease, color var(--duration-fast) ease,
+      transform var(--duration-base) var(--ease-out);
+  }
+
+  .services__go svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .services__card:hover {
+      border-color: var(--color-accent);
+      box-shadow: var(--shadow-md);
+    }
+
+    .services__card:hover .services__go {
+      background: var(--color-accent);
+      border-color: var(--color-accent);
+      color: #fff;
+      transform: translate(2px, -2px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .services__card:hover .services__go {
+      transform: none;
+    }
   }
 
   .services__card-top {
@@ -77,15 +129,6 @@ const icons: Record<ServiceIcon, string> = {
     justify-content: space-between;
     gap: var(--space-4);
     margin-bottom: var(--space-5);
-  }
-
-  .services__index {
-    font-size: var(--font-size-sm);
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: var(--color-headline);
-    opacity: 0.28;
-    font-variant-numeric: tabular-nums;
   }
 
   .services__icon {
