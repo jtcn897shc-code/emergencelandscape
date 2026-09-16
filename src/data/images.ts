@@ -4,6 +4,9 @@
 import type { ImageMetadata } from "astro";
 import logoMark from "../assets/brand/logo-mark.png";
 import logoMarkReversed from "../assets/brand/logo-mark-reversed.png";
+import heroSunsetGarden from "../assets/photos/hero-sunset-garden.jpg";
+import frontYardInstallation from "../assets/photos/front-yard-installation.jpg";
+import plantingDetail from "../assets/photos/planting-detail.jpg";
 
 export type ImageKind = "garden" | "planting" | "crew" | "property" | "detail";
 
@@ -12,6 +15,8 @@ export type ImageEntry = {
   alt: string;
   label: string;
   kind: ImageKind;
+  /** Rendered over the image as a small glass caption, where the layout uses one. */
+  caption?: { label: string; value: string };
 };
 
 export const brand = {
@@ -25,45 +30,40 @@ export const brand = {
   },
 };
 
-// TODO: every entry below is a placeholder — no real job photos have been
-// supplied yet (see DISCOVERY.md). Replace `src: undefined` with a real,
-// EXIF-stripped photo as they come in; the label/kind stay as a content
-// brief for what should go there.
+// TODO: the three photos below are client-generated stand-ins, not photos of
+// Emergence's own completed work. Swap them for real job photos (EXIF
+// stripped) before launch — see DISCOVERY.md and PLAYBOOK.md §6.
 export const images: Record<string, ImageEntry> = {
   hero: {
-    src: undefined,
-    alt: "A recently designed and planted garden bed on a North Shore property",
-    label: "TODO: hero photo — a real finished garden/planting job, wide shot",
+    src: heroSunsetGarden,
+    alt: "A West Coast garden at golden hour — stone steps through fern and rhododendron planting, ocean and mountains beyond",
+    label: "Hero — stand-in until real job photography is available",
     kind: "garden",
   },
   proof: {
-    src: undefined,
-    alt: "Close-up of healthy planting installed by Emergence",
-    label: "TODO: a close-up plant/planting detail shot showing quality of work",
+    src: plantingDetail,
+    alt: "Gloved hands settling a flowering shrub into fresh, dark soil in a fern-edged bed",
+    label: "Proof — stand-in until real job photography is available",
     kind: "planting",
+    caption: {
+      label: "Planted right",
+      value: "Soil, siting, and species chosen for how the plant actually grows",
+    },
   },
-  about: {
-    src: undefined,
-    alt: "The Emergence crew at work on a property",
-    label: "TODO: a real photo of the crew or owner on a job site",
-    kind: "crew",
-  },
-  gallery1: {
-    src: undefined,
-    alt: "Before and after of a garden bed redesign",
-    label: "TODO: gallery photo 1 — a completed install or redesign",
+  work1: {
+    src: frontYardInstallation,
+    alt: "A finished front-yard installation: layered beds, stone edging, and lawn framing a modern West Coast home",
+    label: "Work — stand-in until real job photography is available",
     kind: "property",
+    caption: {
+      label: "Design, install, maintain",
+      value: "Beds, edging, and planting carried from plan to finished property",
+    },
   },
-  gallery2: {
+  work2: {
     src: undefined,
-    alt: "A maintained garden border",
-    label: "TODO: gallery photo 2 — seasonal maintenance result",
+    alt: "A further example of completed work by Emergence",
+    label: "TODO: second real project photo — a different property or season",
     kind: "detail",
-  },
-  gallery3: {
-    src: undefined,
-    alt: "A landscaped front yard",
-    label: "TODO: gallery photo 3 — a full-property shot",
-    kind: "property",
   },
 };

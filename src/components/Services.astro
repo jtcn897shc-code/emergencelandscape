@@ -13,17 +13,27 @@ const icons: Record<ServiceIcon, string> = {
 
 <section id="services" class="section">
   <div class="wrap">
-    <h2>Services</h2>
-    <p class="services__intro">
-      TODO: confirm the real service list and ordering with the client — see
-      DISCOVERY.md. Shown highest-intent first once confirmed.
-    </p>
+    <div class="services__head">
+      <div>
+        <p class="eyebrow">What we do</p>
+        <h2>Horticulture-trained garden care</h2>
+      </div>
+      <p class="services__note">
+        TODO: confirm the real service list and ordering with the client — see
+        DISCOVERY.md. Shown highest-intent first once confirmed.
+      </p>
+    </div>
 
     <div class="services__grid">
-      {services.map((service) => (
+      {services.map((service, i) => (
         <article class="services__card reveal">
-          <div class="services__icon">
-            <svg viewBox="0 0 24 24" aria-hidden="true" set:html={icons[service.icon]} />
+          <div class="services__card-top">
+            <div class="services__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" set:html={icons[service.icon]} />
+            </div>
+            <span class="services__index" aria-hidden="true">
+              {String(i + 1).padStart(2, "0")}
+            </span>
           </div>
           <h3>{service.name}</h3>
           <p>{service.description}</p>
@@ -34,12 +44,17 @@ const icons: Record<ServiceIcon, string> = {
 </section>
 
 <style>
-  .services__intro {
-    max-width: 42rem;
-    margin-top: var(--space-3);
-    color: var(--color-ink);
-    opacity: 0.75;
+  .services__head {
+    display: grid;
+    gap: var(--space-4);
+    align-items: end;
+  }
+
+  .services__note {
     font-size: var(--font-size-sm);
+    color: var(--color-ink);
+    opacity: 0.7;
+    max-width: 34ch;
   }
 
   .services__grid {
@@ -53,6 +68,24 @@ const icons: Record<ServiceIcon, string> = {
     border: 1px solid var(--color-border);
     border-radius: var(--radius-xl);
     padding: var(--space-6);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .services__card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+  }
+
+  .services__index {
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-headline);
+    opacity: 0.28;
+    font-variant-numeric: tabular-nums;
   }
 
   .services__icon {
@@ -61,10 +94,10 @@ const icons: Record<ServiceIcon, string> = {
     justify-content: center;
     width: 3rem;
     height: 3rem;
+    flex: none;
     border-radius: var(--radius-full);
     background: var(--color-accent);
     color: #fff;
-    margin-bottom: var(--space-4);
   }
 
   .services__icon :global(svg) {
@@ -101,6 +134,13 @@ const icons: Record<ServiceIcon, string> = {
   @media (min-width: 48rem) {
     .services__grid {
       grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .services__head {
+      grid-template-columns: 1fr auto;
+      gap: var(--space-7);
     }
   }
 </style>

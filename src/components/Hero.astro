@@ -4,10 +4,12 @@ import { images } from "../data/images";
 import Figure from "./Figure.astro";
 ---
 
-<section id="top" class="hero section--tight">
+<section id="top" class="hero">
   <div class="wrap">
-    <div class="hero__media reveal">
-      <Figure entry={images.hero} fill priority sizes="100vw" />
+    <div class="hero__media">
+      <div class="hero__photo">
+        <Figure entry={images.hero} fill hideLabel priority sizes="(min-width: 76rem) 72rem, 100vw" />
+      </div>
       <div class="hero__scrim" aria-hidden="true"></div>
 
       <div class="hero__content">
@@ -16,12 +18,24 @@ import Figure from "./Figure.astro";
         <p class="hero__body">{coreArgument.body}</p>
 
         <div class="hero__actions">
-          <a class="btn btn--on-dark" href="#contact">Get a quote</a>
+          <a class="btn btn--on-dark" href="#contact">
+            Get a quote
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path
+                d="M2.5 8h11m0 0L9 3.5M13.5 8 9 12.5"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"></path>
+            </svg>
+          </a>
           <a class="btn btn--outline btn--outline-dark" href={business.phoneHref}>
             Call {business.phone}
           </a>
         </div>
+      </div>
 
+      <div class="hero__meta">
         <a
           class="hero__social"
           href={business.facebookUrl}
@@ -29,54 +43,89 @@ import Figure from "./Figure.astro";
           rel="noopener noreferrer"
           aria-label={`${business.name} on Facebook`}
         >
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path
               d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5 3.66 9.15 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.91h-2.34V22c4.78-.79 8.44-4.94 8.44-9.94Z"
             ></path>
           </svg>
         </a>
-      </div>
-
-      <div class="hero__badge glass">
-        <span class="hero__badge-title">Serving</span>
-        <span class="hero__badge-body">{business.serviceAreas.join(" · ")}</span>
+        <p class="hero__areas">{business.serviceAreas.join(" · ")}</p>
       </div>
     </div>
   </div>
 </section>
 
 <style>
+  .hero {
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-8);
+  }
+
   .hero__media {
     display: grid;
     position: relative;
     isolation: isolate;
-    min-height: clamp(30rem, 80vh, 42rem);
+    min-height: clamp(32rem, 82vh, 44rem);
     border-radius: var(--radius-xl);
     overflow: hidden;
     box-shadow: var(--shadow-lg);
   }
 
-  /* the background photo/placeholder and scrim are absolutely positioned
-     (inset: 0) and don't participate in sizing; .hero__content is the only
-     in-flow grid item, so it (not a fixed height) determines how tall the
-     hero grows past min-height when the copy is long */
+  /* the photo and scrim are absolutely positioned and don't contribute to
+     sizing; .hero__content is the only in-flow grid item, so it (not a fixed
+     height) decides how tall the hero grows when the copy is long */
   .hero__media > :global(*) {
     grid-area: 1 / 1;
   }
 
+  .hero__photo {
+    position: absolute;
+    inset: 0;
+    animation: hero-settle 1400ms var(--ease-out) both;
+  }
+
+  /* pure CSS, so it runs with or without JS; nothing is hidden beforehand */
+  @keyframes hero-settle {
+    from {
+      transform: scale(1.06);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__photo {
+      animation: hero-fade 300ms ease both;
+    }
+
+    @keyframes hero-fade {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  }
+
+  /* Two layers instead of one flat wash: the copy sits bottom-left, so the
+     darkening is weighted there and the sky/mountains on the upper right stay
+     vivid. Checked for contrast against this photo's own bottom-left values. */
   .hero__scrim {
     position: absolute;
     inset: 0;
-    /* keeps a minimum ~55% dark even at the top — checked against the
-       lightest thing it ever sits on (the placeholder gradient) so hero
-       copy stays readable (~4.2:1+ for the large bold headline) whether
-       a photo has loaded yet or not */
-    background: linear-gradient(
-      to top,
-      rgb(15 20 10 / 90%) 0%,
-      rgb(15 20 10 / 65%) 50%,
-      rgb(15 20 10 / 55%) 100%
-    );
+    background:
+      linear-gradient(
+        to top,
+        rgb(12 18 8 / 92%) 0%,
+        rgb(12 18 8 / 72%) 32%,
+        rgb(12 18 8 / 28%) 62%,
+        rgb(12 18 8 / 12%) 100%
+      ),
+      linear-gradient(to right, rgb(12 18 8 / 55%) 0%, rgb(12 18 8 / 0%) 62%);
     pointer-events: none;
   }
 
@@ -88,113 +137,110 @@ import Figure from "./Figure.astro";
     align-items: flex-start;
     gap: var(--space-4);
     width: 100%;
+    max-width: 44rem;
     padding: var(--space-6);
     color: var(--color-bg);
   }
 
   .hero__content h1 {
-    color: var(--color-bg);
-    max-width: 24ch;
+    color: #fff;
+    font-size: clamp(2.5rem, 1.5rem + 4.2vw, 4.5rem);
+    max-width: 18ch;
+    text-shadow: 0 2px 24px rgb(12 18 8 / 45%);
   }
 
   .hero__eyebrow {
     color: #fff;
-    background: rgb(255 255 255 / 16%);
-    border: 1px solid rgb(255 255 255 / 30%);
-    width: fit-content;
-    padding: var(--space-1) var(--space-3);
-    border-radius: var(--radius-full);
     font-weight: 700;
     font-size: var(--font-size-xs);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+    letter-spacing: var(--tracking-eyebrow);
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .hero__eyebrow::before {
+    content: "";
+    width: var(--space-6);
+    height: 1px;
+    background: currentColor;
+    opacity: 0.6;
+    flex: none;
   }
 
   .hero__body {
-    max-width: 34rem;
+    max-width: 38ch;
     font-size: var(--font-size-lg);
-    color: rgb(247 245 238 / 92%);
+    color: rgb(247 245 238 / 90%);
+    text-wrap: pretty;
   }
 
   .hero__actions {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-3);
-    margin-top: var(--space-2);
+    margin-top: var(--space-3);
   }
 
   .btn--outline.btn--outline-dark {
-    color: var(--color-bg);
-    border-color: rgb(247 245 238 / 60%);
+    color: #fff;
+    border-color: rgb(255 255 255 / 45%);
   }
 
   .btn--outline.btn--outline-dark:hover {
-    background: rgb(255 255 255 / 12%);
+    background: rgb(255 255 255 / 14%);
+  }
+
+  .hero__meta {
+    z-index: 1;
+    align-self: end;
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-6);
+  }
+
+  .hero__areas {
+    display: none;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: rgb(247 245 238 / 85%);
   }
 
   .hero__social {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex: none;
     border-radius: var(--radius-full);
-    background: rgb(255 255 255 / 16%);
-    border: 1px solid rgb(255 255 255 / 30%);
+    background: rgb(255 255 255 / 14%);
+    border: 1px solid rgb(255 255 255 / 28%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     color: #fff;
-    margin-top: var(--space-2);
     transition: background-color var(--duration-fast) ease;
   }
 
   @media (hover: hover) and (pointer: fine) {
     .hero__social:hover {
-      background: rgb(255 255 255 / 28%);
+      background: rgb(255 255 255 / 26%);
     }
   }
 
-  .hero__badge {
-    position: absolute;
-    right: var(--space-5);
-    top: var(--space-5);
-    z-index: 1;
-    max-width: 14rem;
-    padding: var(--space-3) var(--space-4);
-    border-radius: var(--radius-lg);
-    display: none;
-  }
-
-  .glass {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-  }
-
-  .hero__badge-title {
-    display: block;
-    font-size: var(--font-size-xs);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-accent-strong);
-    margin-bottom: var(--space-1);
-  }
-
-  .hero__badge-body {
-    display: block;
-    font-size: var(--font-size-sm);
-    font-weight: 600;
-    color: var(--color-headline);
-  }
-
-  @media (min-width: 40rem) {
-    .hero__badge {
+  @media (min-width: 48rem) {
+    .hero__areas {
       display: block;
     }
   }
 
   @media (min-width: 64rem) {
-    .hero__content {
+    .hero__content,
+    .hero__meta {
       padding: var(--space-8);
     }
   }

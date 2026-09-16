@@ -50,6 +50,24 @@ colors" — the green half keeps its real color) so it stays legible on the
 footer and any other dark panel. Use `logo-mark.png` on light grounds,
 `logo-mark-reversed.png` on dark ones.
 
+### Photography and overlay rules
+
+The layout is photography-led: a full-bleed hero, a portrait proof shot, and
+a feature work tile. Two rules keep text legible over images that will change
+when real job photos replace the current stand-ins:
+
+- **Hero scrim is directional, not a flat wash.** The copy sits bottom-left,
+  so the darkening is weighted there (≈92% at the bottom edge) and falls off
+  up and to the right, leaving sky and detail visible. It never drops below
+  ~12%, so a bright photo can't wash the headline out. Measured against the
+  current hero photo, the headline renders at **9.7:1**.
+- **Glass captions only ever sit fully over a photo.** A translucent card
+  that straddles the edge of an image reads muddy, because it's blending
+  with two different grounds. A caption that overlaps the photo's edge uses
+  the `solid` variant (opaque light card) instead — see
+  `PhotoCaption.astro`. The dark glass is mixed at 72% so white text holds
+  over a bright area of a photo, not just a dark one.
+
 ---
 
 ## Typography

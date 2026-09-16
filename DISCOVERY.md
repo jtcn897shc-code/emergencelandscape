@@ -42,8 +42,13 @@ open item pending them pasting it in.
   competitors can't. Not yet stated by the client or found in the source
   material; needs their input or something to infer it from (an old ad,
   a review, the values page once available).
-- [ ] **Real job/property photos** — none supplied yet. Site will use the
-  styled placeholder system (`src/data/images.ts`) until real photos exist.
+- [ ] **Real job/property photos** — still none of Emergence's *own* work.
+  Three AI-generated stand-ins (supplied by the client) are in place for the
+  hero, the proof section, and the lead work tile; one work tile is still a
+  styled placeholder. These are generic West Coast garden imagery, **not
+  photos of this company's projects**, and should be swapped for real,
+  EXIF-stripped job photos before launch. Until then the site must not
+  describe them as Emergence's completed work.
 
 ## Open — nice to have
 

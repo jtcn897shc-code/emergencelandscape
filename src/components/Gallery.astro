@@ -1,54 +1,107 @@
 ---
 import { images } from "../data/images";
 import Figure from "./Figure.astro";
+import PhotoCaption from "./PhotoCaption.astro";
 
-const galleryEntries = [images.gallery1, images.gallery2, images.gallery3];
+const feature = images.work1;
+const secondary = images.work2;
 ---
 
-<section id="work" class="gallery section">
+<section id="work" class="work section">
   <div class="wrap">
-    <h2>Our work</h2>
-    <p class="gallery__intro">
-      TODO: swap in real job photos as they come in — real work beats
-      generated imagery for a trade business every time (see PLAYBOOK.md §6).
-    </p>
+    <div class="work__head">
+      <div>
+        <p class="eyebrow">Our work</p>
+        <h2>From plan to planted</h2>
+      </div>
+      <p class="work__note">
+        TODO: swap in real job photos as they come in — real work beats
+        generated imagery for a trade business every time (PLAYBOOK.md §6).
+      </p>
+    </div>
 
-    <div class="gallery__grid">
-      {galleryEntries.map((entry) => (
-        <div class="reveal">
-          <Figure entry={entry} aspect="1 / 1" sizes="(min-width: 64rem) 30vw, 100vw" />
-        </div>
-      ))}
+    <div class="work__grid">
+      <figure class="work__feature reveal">
+        <Figure entry={feature} aspect="16 / 10" sizes="(min-width: 64rem) 62vw, 100vw" />
+        {feature.caption && (
+          <PhotoCaption
+            label={feature.caption.label}
+            value={feature.caption.value}
+            class="work__caption"
+          />
+        )}
+      </figure>
+
+      <div class="work__secondary reveal">
+        <Figure entry={secondary} fill sizes="(min-width: 64rem) 30vw, 100vw" />
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  .gallery__intro {
-    max-width: 42rem;
-    margin-top: var(--space-3);
-    color: var(--color-ink);
-    opacity: 0.75;
-    font-size: var(--font-size-sm);
+  .work__head {
+    display: grid;
+    gap: var(--space-4);
+    align-items: end;
   }
 
-  .gallery__grid {
+  .work__note {
+    font-size: var(--font-size-sm);
+    color: var(--color-ink);
+    opacity: 0.7;
+    max-width: 34ch;
+  }
+
+  .work__grid {
     display: grid;
     gap: var(--space-5);
     margin-top: var(--space-7);
   }
 
+  .work__feature {
+    position: relative;
+    margin: 0;
+  }
+
+  /* :global — the element itself belongs to PhotoCaption.astro, so it carries
+     that component's scope attribute rather than this one's */
+  .work__feature :global(.work__caption) {
+    left: var(--space-4);
+    bottom: var(--space-4);
+  }
+
   @media (min-width: 48rem) {
-    .gallery__grid {
-      grid-template-columns: repeat(3, 1fr);
+    .work__feature :global(.work__caption) {
+      left: var(--space-6);
+      bottom: var(--space-6);
     }
   }
 
-  /* small stagger so the grid doesn't reveal all at once */
-  .gallery__grid > :nth-child(2) {
-    transition-delay: 60ms;
+  /* the tile's shape is set on this wrapper, not on the image, so the wide
+     layout can stretch it to the feature's height without fighting an
+     inline aspect-ratio */
+  .work__secondary {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
   }
-  .gallery__grid > :nth-child(3) {
-    transition-delay: 120ms;
+
+  @media (min-width: 64rem) {
+    .work__head {
+      grid-template-columns: 1fr auto;
+      gap: var(--space-7);
+    }
+
+    .work__grid {
+      grid-template-columns: 1.85fr 1fr;
+      align-items: stretch;
+    }
+
+    .work__secondary {
+      aspect-ratio: auto;
+      height: 100%;
+    }
   }
 </style>

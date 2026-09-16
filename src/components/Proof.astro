@@ -1,22 +1,33 @@
 ---
 import { images } from "../data/images";
 import Figure from "./Figure.astro";
+import PhotoCaption from "./PhotoCaption.astro";
+
+const entry = images.proof;
 ---
 
 <section class="proof section">
   <div class="wrap proof__grid">
-    <div class="proof__figure reveal">
-      <Figure entry={images.proof} aspect="4 / 5" sizes="(min-width: 64rem) 36vw, 100vw" />
-    </div>
+    <figure class="proof__figure reveal">
+      <Figure entry={entry} aspect="4 / 5" sizes="(min-width: 64rem) 38vw, 100vw" />
+      {entry.caption && (
+        <PhotoCaption
+          label={entry.caption.label}
+          value={entry.caption.value}
+          variant="solid"
+          class="proof__caption"
+        />
+      )}
+    </figure>
 
     <div class="proof__copy">
+      <p class="eyebrow">The difference</p>
       <h2>Why "horticulture" is in the name</h2>
-      <p>
+      <p class="lede">
         TODO: confirm with client — a lot of landscaping companies mow, blow,
         and move on. Horticulture means understanding what a plant actually
         needs to thrive: soil, light, water, and the right species for the
-        spot it's going in. That's the difference we want this section to
-        make concrete once we have the client's own words for it.
+        spot it's going in.
       </p>
     </div>
   </div>
@@ -29,15 +40,29 @@ import Figure from "./Figure.astro";
     align-items: center;
   }
 
-  .proof__copy p {
-    margin-top: var(--space-4);
-    font-size: var(--font-size-lg);
-    max-width: 36rem;
+  .proof__figure {
+    position: relative;
+    margin: 0;
+  }
+
+  /* :global — the element itself belongs to PhotoCaption.astro, so it carries
+     that component's scope attribute rather than this one's */
+  .proof__figure :global(.proof__caption) {
+    left: var(--space-4);
+    bottom: var(--space-4);
   }
 
   @media (min-width: 64rem) {
     .proof__grid {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1.05fr;
+      gap: var(--space-9);
+    }
+
+    /* the caption straddles the photo's edge rather than sitting inside it */
+    .proof__figure :global(.proof__caption) {
+      left: auto;
+      right: calc(var(--space-8) * -1);
+      bottom: var(--space-7);
     }
   }
 </style>

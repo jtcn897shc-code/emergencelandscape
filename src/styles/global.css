@@ -44,7 +44,13 @@ h4 {
   font-stretch: var(--font-stretch-display);
   font-weight: 800;
   line-height: var(--line-height-tight);
-  letter-spacing: -0.01em;
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+}
+
+h3,
+h4 {
+  letter-spacing: -0.018em;
 }
 
 h1 {
@@ -72,6 +78,36 @@ button {
   color: inherit;
 }
 
+/* editorial section label — small caps, letterspaced, sits above an h2 */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  color: var(--color-accent-strong);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+}
+
+.eyebrow::before {
+  content: "";
+  width: var(--space-6);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.45;
+  flex: none;
+}
+
+.lede {
+  max-width: 44ch;
+  margin-top: var(--space-4);
+  font-size: var(--font-size-lg);
+  color: var(--color-ink);
+  text-wrap: pretty;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -87,6 +123,23 @@ button {
   /* hover/color change uses the browser's `ease`, per the animate skill's table */
   transition: transform var(--duration-fast) ease,
     background-color var(--duration-fast) ease;
+}
+
+.btn svg {
+  flex: none;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover svg {
+    transform: translateX(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover svg {
+    transform: none;
+  }
 }
 
 .btn--primary {

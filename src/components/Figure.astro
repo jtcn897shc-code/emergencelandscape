@@ -10,6 +10,8 @@ interface Props {
   class?: string;
   /** Absolutely fill the positioned parent instead of sizing by aspect-ratio. */
   fill?: boolean;
+  /** Drop the placeholder's visible label, for layouts that overlay their own copy. */
+  hideLabel?: boolean;
 }
 
 const {
@@ -19,6 +21,7 @@ const {
   priority = false,
   class: className,
   fill = false,
+  hideLabel = false,
 } = Astro.props;
 
 const kindLabel: Record<string, string> = {
@@ -49,7 +52,7 @@ const kindLabel: Record<string, string> = {
       role="img"
       aria-label={entry.alt}
     >
-      {!fill && (
+      {!hideLabel && (
         <>
           <span class="figure-placeholder__kind">{kindLabel[entry.kind] ?? "Photo"}</span>
           <span class="figure-placeholder__caption">Photo coming soon</span>
@@ -65,7 +68,7 @@ const kindLabel: Record<string, string> = {
     height: 100%;
     object-fit: cover;
     display: block;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
   }
 
   .figure-photo--fill {
@@ -78,12 +81,6 @@ const kindLabel: Record<string, string> = {
     position: absolute;
     inset: 0;
     border-radius: 0;
-    /* in fill mode this sits behind bottom-anchored overlay copy (e.g. the
-       hero) — keep the label out of that area instead of dead-centering it */
-    justify-content: flex-start;
-    align-items: flex-start;
-    text-align: left;
-    padding: var(--space-6);
   }
 
   .figure-placeholder {
@@ -93,7 +90,7 @@ const kindLabel: Record<string, string> = {
     align-items: center;
     justify-content: center;
     gap: var(--space-2);
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     background: linear-gradient(
       135deg,
       var(--color-sage-tint) 0%,

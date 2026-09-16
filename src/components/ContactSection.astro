@@ -5,8 +5,9 @@ import { business, contactIntake } from "../data/site";
 <section id="contact" class="contact section">
   <div class="wrap contact__grid">
     <div>
+      <p class="eyebrow">Start here</p>
       <h2>{contactIntake.heading}</h2>
-      <p class="contact__body">{contactIntake.body}</p>
+      <p class="lede">{contactIntake.body}</p>
 
       <ul class="contact__checklist">
         {contactIntake.checklist.map((item) => (
@@ -46,12 +47,6 @@ import { business, contactIntake } from "../data/site";
     gap: var(--space-7);
   }
 
-  .contact__body {
-    margin-top: var(--space-4);
-    font-size: var(--font-size-lg);
-    max-width: 34rem;
-  }
-
   .contact__checklist {
     margin-top: var(--space-6);
     padding-left: var(--space-5);
@@ -64,12 +59,13 @@ import { business, contactIntake } from "../data/site";
   .contact__card {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-xl);
     padding: var(--space-6);
     display: flex;
     flex-direction: column;
     gap: var(--space-4);
     height: fit-content;
+    box-shadow: var(--shadow-md);
   }
 
   .contact__card-label {
