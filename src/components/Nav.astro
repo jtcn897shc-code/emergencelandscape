@@ -18,23 +18,19 @@ const navLinks = [
         class="nav__logo"
         src={brand.logoMark.src}
         alt=""
-        width={560}
-        height={271}
+        width={420}
+        height={203}
         loading="eager"
       />
-      <span class="nav__wordmark">Landscape Horticulture</span>
+      <span class="nav__wordmark">Emergence</span>
     </a>
 
     <nav class="nav__links" aria-label="Primary">
       {navLinks.map((link) => (
         <a href={link.href}>{link.label}</a>
       ))}
-    </nav>
-
-    <div class="nav__cta">
       <a class="nav__phone" href={business.phoneHref}>{business.phone}</a>
-      <a class="btn btn--primary" href="#contact">Get a quote</a>
-    </div>
+    </nav>
 
     <details class="nav__mobile-details">
       <summary class="nav__toggle">
@@ -49,7 +45,6 @@ const navLinks = [
           ))}
         </nav>
         <a class="nav__phone" href={business.phoneHref}>{business.phone}</a>
-        <a class="btn btn--primary" href="#contact">Get a quote</a>
       </div>
     </details>
   </div>
@@ -68,12 +63,14 @@ const navLinks = [
 </script>
 
 <style>
+  /* Thin, quiet, square. No pill capsule around the links, no filled green
+     button — the hero lockup carries the brand, the nav just navigates. */
   .nav {
     position: sticky;
     top: 0;
     z-index: 40;
     background: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: var(--rule);
   }
 
   .nav__inner {
@@ -83,13 +80,10 @@ const navLinks = [
     gap: var(--space-6);
   }
 
-  /* The mark leads. The wordmark is deliberately subordinate — small, muted
-     and letterspaced — so the logo is what registers first. */
   .nav__brand {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.15rem;
+    align-items: center;
+    gap: var(--space-3);
     text-decoration: none;
     color: var(--color-headline);
     margin-right: auto;
@@ -98,66 +92,42 @@ const navLinks = [
 
   .nav__logo {
     width: auto;
-    height: 3.1rem;
+    height: 2.25rem;
   }
 
-  /* kept narrower than the mark above it, so the logo wins on visual mass */
   .nav__wordmark {
-    font-family: var(--font-body);
-    font-size: 0.5625rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
+    font-family: var(--font-display);
+    font-variation-settings: "opsz" 48, "SOFT" 0, "WONK" 0;
+    font-weight: 500;
+    font-size: 1.0625rem;
+    letter-spacing: 0.17em;
     text-transform: uppercase;
-    color: var(--color-ink);
-    opacity: 0.55;
     white-space: nowrap;
-  }
-
-  @media (min-width: 64rem) {
-    .nav__logo {
-      height: 4rem;
-    }
-
-    .nav__wordmark {
-      font-size: 0.625rem;
-      letter-spacing: 0.16em;
-    }
   }
 
   .nav__links {
     display: none;
-    gap: var(--space-1);
-    background: var(--color-sage-tint);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-full);
-    padding: var(--space-1);
+    align-items: center;
+    gap: var(--space-6);
   }
 
   .nav__links a {
-    text-decoration: none;
-    font-weight: 600;
+    font-family: var(--font-body);
     font-size: var(--font-size-sm);
-    padding: var(--space-2) var(--space-4);
-    border-radius: var(--radius-full);
-    transition: color var(--duration-fast) ease, background-color var(--duration-fast) ease;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    color: var(--color-ink);
+    transition: color var(--duration-fast) ease;
   }
 
   .nav__links a:hover {
-    color: var(--color-accent-strong);
-    background: var(--color-surface);
-  }
-
-  .nav__cta {
-    display: none;
-    align-items: center;
-    gap: var(--space-4);
+    color: var(--color-headline);
   }
 
   .nav__phone {
-    text-decoration: none;
-    font-weight: 700;
-    font-size: var(--font-size-sm);
-    white-space: nowrap;
+    color: var(--color-headline) !important;
+    font-weight: 600 !important;
   }
 
   .nav__mobile-details {
@@ -187,10 +157,9 @@ const navLinks = [
   .nav__toggle-bars::before,
   .nav__toggle-bars::after {
     display: block;
-    width: 1.5rem;
-    height: 2px;
+    width: 1.375rem;
+    height: 1px;
     background: var(--color-headline);
-    border-radius: var(--radius-full);
     position: relative;
   }
 
@@ -215,7 +184,7 @@ const navLinks = [
     gap: var(--space-4);
     padding: var(--space-5);
     background: var(--color-bg);
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: var(--rule);
     opacity: 1;
     transform: translateY(0);
     transition: opacity var(--duration-base) ease, transform var(--duration-base) var(--ease-out);
@@ -244,14 +213,19 @@ const navLinks = [
   }
 
   .nav__mobile a {
+    font-family: var(--font-body);
+    font-size: var(--font-size-base);
     text-decoration: none;
-    font-weight: 600;
+    color: var(--color-ink);
   }
 
   @media (min-width: 64rem) {
-    .nav__links,
-    .nav__cta {
+    .nav__links {
       display: flex;
+    }
+
+    .nav__logo {
+      height: 2.5rem;
     }
 
     .nav__mobile-details {

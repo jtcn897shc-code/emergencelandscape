@@ -1,34 +1,27 @@
 ---
 import { images } from "../data/images";
 import Figure from "./Figure.astro";
-import PhotoCaption from "./PhotoCaption.astro";
 
 const entry = images.proof;
 ---
 
 <section class="proof section">
   <div class="wrap proof__grid">
-    <figure class="proof__figure reveal">
-      <Figure entry={entry} aspect="4 / 5" sizes="(min-width: 64rem) 38vw, 100vw" />
-      {entry.caption && (
-        <PhotoCaption
-          label={entry.caption.label}
-          value={entry.caption.value}
-          variant="solid"
-          class="proof__caption"
-        />
-      )}
-    </figure>
-
     <div class="proof__copy">
-      <p class="eyebrow">The difference</p>
-      <h2>Why "horticulture" is in the name</h2>
+      <h2>Why "horticulture"<br />is in the name</h2>
       <p class="lede">
         Plenty of outfits mow, blow, and move on. Horticulture means starting
         from what a plant actually needs to thrive — soil, light, water, and
         the right species for the spot it's going in.
       </p>
+      <p class="proof__note accent-italic">
+        Soil, siting and species, chosen for how the plant actually grows.
+      </p>
     </div>
+
+    <figure class="proof__figure reveal">
+      <Figure entry={entry} aspect="4 / 5" sizes="(min-width: 64rem) 42vw, 100vw" />
+    </figure>
   </div>
 </section>
 
@@ -36,32 +29,36 @@ const entry = images.proof;
   .proof__grid {
     display: grid;
     gap: var(--space-7);
-    align-items: center;
+  }
+
+  .proof__note {
+    margin-top: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: var(--rule-strong);
+    font-size: var(--font-size-lg);
+    color: var(--color-headline);
+    max-width: 34ch;
   }
 
   .proof__figure {
-    position: relative;
     margin: 0;
-  }
-
-  /* :global — the element itself belongs to PhotoCaption.astro, so it carries
-     that component's scope attribute rather than this one's */
-  .proof__figure :global(.proof__caption) {
-    left: var(--space-4);
-    bottom: var(--space-4);
   }
 
   @media (min-width: 64rem) {
     .proof__grid {
-      grid-template-columns: 1fr 1.05fr;
-      gap: var(--space-9);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr);
+      gap: var(--space-10);
+      align-items: start;
     }
 
-    /* the caption straddles the photo's edge rather than sitting inside it */
-    .proof__figure :global(.proof__caption) {
-      left: auto;
-      right: calc(var(--space-8) * -1);
-      bottom: var(--space-7);
+    .proof__copy {
+      padding-top: var(--space-8);
+    }
+
+    /* pushed down out of alignment on purpose — a staggered baseline reads
+       as composed, where two tops flush to the same line reads as a grid */
+    .proof__figure {
+      margin-top: calc(var(--space-10) * -1);
     }
   }
 </style>

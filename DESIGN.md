@@ -149,6 +149,54 @@ cubic-bezier(0,0,0.2,1) · `--ease-in` cubic-bezier(0.4,0,1,1) ·
 
 ---
 
+## The house style: why this page is square and flat
+
+The first build of this site read as machine-made, and the reason was
+vocabulary rather than execution. These specific devices, in combination,
+are what a template generator reaches for, and together they are the
+strongest signal that nobody chose anything:
+
+- rounded corners on every surface
+- soft drop shadows standing in for hierarchy
+- frosted-glass cards floating over photographs
+- pill-shaped buttons carrying arrow icons
+- line icons inside coloured circular badges
+- an oversized hero headline shouting over the image
+- an evenly-spaced grid of identical cards
+- eyebrow → headline → lede, repeated identically in every section
+
+**None of these appear on this site, and that is enforced, not aspirational.**
+The verification script asserts that zero elements on the rendered page have
+a border radius and zero have a box shadow. `--radius-*`, `--shadow-*` and
+the glass tokens were deleted outright so they cannot be reached for.
+
+What replaces them:
+
+| Instead of | Use |
+|---|---|
+| Rounded cards with shadows | Square crops and 1px hairlines (`--rule`) |
+| Pill buttons with arrow icons | `.link` (a rule under the label) or one square `.action` |
+| Circular icon badges | Numerals, or nothing |
+| A grid of identical cards | A ruled list, or deliberately uneven plates |
+| A giant hero headline | A centred logo lockup, with a small statement beneath |
+| Flush-aligned columns | Staggered baselines — offsets that read as composed |
+
+Hierarchy comes from type, scale and whitespace. Edges are drawn, never
+elevated. Sections breathe at `--space-10`.
+
+**The hero is a lockup, not a headline.** The mark, the name, an italic
+descriptor and the service areas stack centred over a full-bleed,
+colour-graded photograph. The photo is pulled down to `brightness(0.6)` and
+slightly desaturated — the ungraded frame is a bright, high-saturation
+render that reads as stock, and grading it makes it feel photographed. A
+radial scrim sits behind the lockup specifically, because the logo's pale
+grey half would otherwise disappear into the bright sky exactly where the
+lockup lands.
+
+Copy follows the same rule. A slogan ("designed and grown, not mowed and
+blown") is the register of generated marketing text; a plain statement of
+what the business does reads as a real one.
+
 ## Category clichés to design away from
 
 Five minutes naming what every landscaping-company site defaults to, so we

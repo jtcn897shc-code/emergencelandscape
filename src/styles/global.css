@@ -82,102 +82,90 @@ button {
   color: inherit;
 }
 
-/* editorial section label — small caps, letterspaced, sits above an h2 */
+/* Section label: plain letterspaced small caps. No leading rule, no chip —
+   the label is enough. */
 .eyebrow {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
+  display: block;
   margin-bottom: var(--space-4);
-  color: var(--color-accent-strong);
+  color: var(--color-ink);
+  font-family: var(--font-body);
   font-size: var(--font-size-xs);
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: var(--tracking-eyebrow);
-}
-
-.eyebrow::before {
-  content: "";
-  width: var(--space-6);
-  height: 1px;
-  background: currentColor;
-  opacity: 0.45;
-  flex: none;
+  opacity: 0.6;
 }
 
 .lede {
-  max-width: 44ch;
+  max-width: 46ch;
   margin-top: var(--space-4);
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-base);
   color: var(--color-ink);
   text-wrap: pretty;
 }
 
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-5);
-  border-radius: var(--radius-full);
-  font-weight: 700;
+/* An italic serif accent, for the line under a lockup or a short aside. */
+.accent-italic {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-variation-settings: "opsz" 48, "SOFT" 20, "WONK" 0;
+  font-weight: 400;
+}
+
+/* Links, not buttons. A square-cornered rule under the label reads as
+   editorial; a filled pill with an arrow reads as a template. */
+.link {
+  display: inline-block;
+  font-family: var(--font-body);
   font-size: var(--font-size-sm);
+  font-weight: 600;
+  letter-spacing: 0.02em;
   text-decoration: none;
-  border: 1px solid transparent;
-  cursor: pointer;
-  /* hover/color change uses the browser's `ease`, per the animate skill's table */
-  transition: transform var(--duration-fast) ease,
-    background-color var(--duration-fast) ease;
+  color: var(--color-headline);
+  padding-bottom: 0.2rem;
+  border-bottom: 1px solid currentColor;
+  transition: opacity var(--duration-fast) ease;
 }
 
-.btn svg {
-  flex: none;
-  transition: transform var(--duration-base) var(--ease-out);
+.link:hover {
+  opacity: 0.6;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .btn:hover svg {
-    transform: translateX(3px);
-  }
+.link--on-dark {
+  color: var(--color-bg);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .btn:hover svg {
-    transform: none;
-  }
+/* The one place a filled control is warranted: the primary quote action.
+   Square, flat, no icon. */
+.action {
+  display: inline-block;
+  padding: var(--space-3) var(--space-6);
+  background: var(--color-headline);
+  color: var(--color-bg);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--color-headline);
+  transition: background-color var(--duration-fast) ease, color var(--duration-fast) ease;
 }
 
-.btn--primary {
-  background: var(--color-accent);
-  color: #fff;
-}
-
-.btn--primary:hover {
-  background: var(--color-accent-strong);
-}
-
-.btn--outline {
+.action:hover {
   background: transparent;
-  border-color: currentColor;
   color: var(--color-headline);
 }
 
-.btn--outline:hover {
-  background: var(--color-sage-tint);
+.action--on-dark {
+  background: transparent;
+  border-color: rgb(247 245 238 / 55%);
+  color: var(--color-bg);
 }
 
-.btn--on-dark {
+.action--on-dark:hover {
   background: var(--color-bg);
   color: var(--color-dark);
-}
-
-.btn--on-dark:hover {
-  background: #fff;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .btn:hover {
-    transform: translateY(-1px);
-  }
 }
 
 .visually-hidden {
@@ -193,11 +181,11 @@ button {
 }
 
 .section {
-  padding-block: var(--space-9);
+  padding-block: var(--space-10);
 }
 
 .section--tight {
-  padding-block: var(--space-7);
+  padding-block: var(--space-8);
 }
 
 .wrap {
