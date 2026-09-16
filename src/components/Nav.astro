@@ -13,9 +13,16 @@ const navLinks = [
 
 <header class="nav">
   <div class="wrap nav__inner">
-    <a href="#top" class="nav__brand">
-      <Image src={brand.logoMark.src} alt={brand.logoMark.alt} width={40} height={20} />
-      <span>{business.shortName}</span>
+    <a href="#top" class="nav__brand" aria-label={`${business.name} — home`}>
+      <Image
+        class="nav__logo"
+        src={brand.logoMark.src}
+        alt=""
+        width={560}
+        height={271}
+        loading="eager"
+      />
+      <span class="nav__wordmark">Landscape Horticulture</span>
     </a>
 
     <nav class="nav__links" aria-label="Primary">
@@ -76,21 +83,45 @@ const navLinks = [
     gap: var(--space-6);
   }
 
+  /* The mark leads. The wordmark is deliberately subordinate — small, muted
+     and letterspaced — so the logo is what registers first. */
   .nav__brand {
     display: flex;
-    align-items: center;
-    gap: var(--space-2);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.15rem;
     text-decoration: none;
     color: var(--color-headline);
-    font-weight: 800;
-    font-stretch: var(--font-stretch-display);
-    font-size: var(--font-size-lg);
     margin-right: auto;
+    min-width: 0;
   }
 
-  .nav__brand img {
-    width: 2rem;
-    height: auto;
+  .nav__logo {
+    width: auto;
+    height: 3.1rem;
+  }
+
+  /* kept narrower than the mark above it, so the logo wins on visual mass */
+  .nav__wordmark {
+    font-family: var(--font-body);
+    font-size: 0.5625rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink);
+    opacity: 0.55;
+    white-space: nowrap;
+  }
+
+  @media (min-width: 64rem) {
+    .nav__logo {
+      height: 4rem;
+    }
+
+    .nav__wordmark {
+      font-size: 0.625rem;
+      letter-spacing: 0.16em;
+    }
   }
 
   .nav__links {
