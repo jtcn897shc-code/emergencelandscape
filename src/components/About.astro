@@ -1,0 +1,126 @@
+---
+import { Image } from "astro:assets";
+import { about, business } from "../data/site";
+import { brand } from "../data/images";
+---
+
+<section id="about" class="about section">
+  <div class="wrap">
+    <div class="about__panel reveal">
+      <Image
+        class="about__watermark"
+        src={brand.logoMarkReversed.src}
+        alt=""
+        width={520}
+        height={251}
+        aria-hidden="true"
+      />
+
+      <div class="about__inner">
+        <p class="eyebrow about__eyebrow">{about.heading}</p>
+        <p class="about__statement">{about.body}</p>
+
+        <dl class="about__facts">
+          <div>
+            <dt>Direct line</dt>
+            <dd><a href={business.phoneHref}>{business.phone}</a></dd>
+          </div>
+          <div>
+            <dt>Email</dt>
+            <dd><a href={`mailto:${business.email}`}>{business.email}</a></dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about__panel {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    background: var(--color-dark);
+    color: var(--color-dark-ink);
+    padding: var(--space-8) var(--space-6);
+    box-shadow: var(--shadow-md);
+  }
+
+  .about__watermark {
+    position: absolute;
+    z-index: -1;
+    right: -6%;
+    bottom: -18%;
+    width: min(32rem, 60%);
+    height: auto;
+    opacity: 0.07;
+    pointer-events: none;
+  }
+
+  .about__inner {
+    max-width: 52rem;
+  }
+
+  .about__eyebrow {
+    color: var(--color-accent);
+  }
+
+  .about__eyebrow::before {
+    opacity: 0.6;
+  }
+
+  /* the statement is the section — no photo, so the type carries it */
+  .about__statement {
+    font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2.5rem);
+    font-stretch: var(--font-stretch-display);
+    font-weight: 700;
+    line-height: 1.18;
+    letter-spacing: -0.02em;
+    color: #fff;
+    text-wrap: pretty;
+  }
+
+  .about__facts {
+    display: grid;
+    gap: var(--space-5);
+    margin: var(--space-8) 0 0;
+    padding-top: var(--space-6);
+    border-top: 1px solid rgb(247 245 238 / 18%);
+  }
+
+  .about__facts dt {
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-eyebrow);
+    color: var(--color-accent);
+    margin-bottom: var(--space-2);
+  }
+
+  .about__facts dd {
+    margin: 0;
+    font-weight: 600;
+    color: var(--color-dark-ink);
+  }
+
+  .about__facts a {
+    text-decoration: none;
+  }
+
+  .about__facts a:hover {
+    text-decoration: underline;
+  }
+
+  @media (min-width: 48rem) {
+    .about__facts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .about__panel {
+      padding: var(--space-9) var(--space-8);
+    }
+  }
+</style>

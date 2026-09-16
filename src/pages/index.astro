@@ -1,0 +1,22 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import Services from "../components/Services.astro";
+import Proof from "../components/Proof.astro";
+import Gallery from "../components/Gallery.astro";
+import About from "../components/About.astro";
+import ContactSection from "../components/ContactSection.astro";
+import { business } from "../data/site";
+---
+
+<Layout
+  title={`${business.name} | Landscape design, installation & horticultural care`}
+  description={`${business.name} — horticulture-led landscape design, installation, and garden care serving ${business.serviceAreas.join(", ")}.`}
+>
+  <Hero />
+  <Services />
+  <Proof />
+  <Gallery />
+  <About />
+  <ContactSection />
+</Layout>

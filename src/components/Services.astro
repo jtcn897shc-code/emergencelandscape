@@ -1,0 +1,146 @@
+---
+import { services, type ServiceIcon } from "../data/site";
+
+const icons: Record<ServiceIcon, string> = {
+  design:
+    '<path d="M12 20V10"/><path d="M12 10c0-3.5-2.5-6-6-6 0 3.5 2.5 6 6 6Z"/><path d="M12 10c0-3.5 2.5-6 6-6 0 3.5-2.5 6-6 6Z"/>',
+  install: '<rect x="4" y="4" width="16" height="16" rx="4"/><path d="M12 8v8M8 12h8"/>',
+  prune:
+    '<circle cx="7" cy="6" r="2.5"/><circle cx="7" cy="18" r="2.5"/><path d="M9 7.5 19 18"/><path d="M9 16.5 19 6"/>',
+  seasonal: '<path d="M20 11A8 8 0 1 0 18.5 16.5"/><path d="M20 5v6h-6"/>',
+};
+---
+
+<section id="services" class="section">
+  <div class="wrap">
+    <div class="services__head">
+      <div>
+        <p class="eyebrow">What we do</p>
+        <h2>Horticulture-led garden care</h2>
+      </div>
+      <p class="services__note">
+        Design, installation, and ongoing care for gardens across the North
+        Shore and Langley.
+      </p>
+    </div>
+
+    <div class="services__grid">
+      {services.map((service, i) => (
+        <article class="services__card reveal">
+          <div class="services__card-top">
+            <div class="services__icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true" set:html={icons[service.icon]} />
+            </div>
+            <span class="services__index" aria-hidden="true">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+          </div>
+          <h3>{service.name}</h3>
+          <p>{service.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .services__head {
+    display: grid;
+    gap: var(--space-4);
+    align-items: end;
+  }
+
+  .services__note {
+    font-size: var(--font-size-sm);
+    color: var(--color-ink);
+    opacity: 0.7;
+    max-width: 34ch;
+  }
+
+  .services__grid {
+    display: grid;
+    gap: var(--space-5);
+    margin-top: var(--space-7);
+  }
+
+  .services__card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .services__card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+  }
+
+  .services__index {
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--color-headline);
+    opacity: 0.28;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .services__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    flex: none;
+    border-radius: var(--radius-full);
+    background: var(--color-accent);
+    color: #fff;
+  }
+
+  .services__icon :global(svg) {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* small stagger so the grid doesn't reveal all at once */
+  .services__grid > :nth-child(2) {
+    transition-delay: 60ms;
+  }
+  .services__grid > :nth-child(3) {
+    transition-delay: 120ms;
+  }
+  .services__grid > :nth-child(4) {
+    transition-delay: 180ms;
+  }
+
+  .services__card h3 {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .services__card p {
+    font-size: var(--font-size-sm);
+    color: var(--color-ink);
+  }
+
+  @media (min-width: 48rem) {
+    .services__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .services__head {
+      grid-template-columns: 1fr auto;
+      gap: var(--space-7);
+    }
+  }
+</style>
